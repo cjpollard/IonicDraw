@@ -21,12 +21,13 @@ export class DrawPadPage {
   getCurrentColour() {
     return this.currentColour;
   }
-  
+    
   init() {    
     
     let canvas = this.canvas;
     let context = this.context;
     let that = this;
+    that.changeColour();
     
     function getOffset(obj) {
       var offsetLeft = 0;
@@ -111,7 +112,9 @@ export class DrawPadPage {
   }
     
   changeColour(event) {
-    this.fn.preventEventBubbling(event);
+    if(event) {
+      this.fn.preventEventBubbling(event);
+    }
     var colourBtn = document.getElementById("brushColour");
     var colour = colourBtn.classList[0];
     switch(colour) {
