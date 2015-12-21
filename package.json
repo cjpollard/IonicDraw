@@ -19,6 +19,7 @@
   "description": "IonicWikiApp: An Ionic project",
   "version": "v0.0.1",
   "cordovaPlugins": [
+    "cordova-plugin-camera",
     "cordova-plugin-device",
     "cordova-plugin-console",
     "cordova-plugin-whitelist",

@@ -9,4 +9,15 @@ export class HelloIonicPage {
   constructor(nav: NavController) {
     this.nav = nav;    
   }   
+  
+  takePicture() {
+    var opts = {};
+    var clicky = document.getElementById('clicky');
+    
+    navigator.camera.getPicture(function(imageURI) {
+      clicky.setAttribute('src', imageURI);
+    }, function(err) {
+      
+    }, opts);
+  }
 }
