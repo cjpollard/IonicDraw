@@ -4,6 +4,7 @@ import {HelloIonicPage} from './hello-ionic/hello-ionic';
 import {ListPage} from './list/list';
 import {SubjectsPage} from './subjects/subjects';
 import {DrawPadPage} from './draw-pad/draw-pad';
+import {MotionDrawPage} from './motion-draw/motion-draw';
 
 import "./app.scss";
 
@@ -25,7 +26,8 @@ class MyApp {
       { title: 'Hello Ionic', component: HelloIonicPage },
       { title: 'My First List', component: ListPage },
       { title: 'Subjects', component: SubjectsPage },
-      { title: 'DrawPad', component: DrawPadPage }
+      { title: 'DrawPad', component: DrawPadPage },
+      { title: 'MotionDraw', component: MotionDrawPage}
     ];
 
     // make HelloIonicPage the root (or first) page

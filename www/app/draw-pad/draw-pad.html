@@ -6,19 +6,28 @@
 </ion-navbar>
 
 
-<ion-content padding>
-
-  <h3>Draw here!</h3>
-  
-  <ion-row>
-    <button id="clearSurface" (click)="clearCanvas()"><icon close-circle></icon>&nbsp;Clear Canvas</button>
-    <button id="brushColour" dark class="button-dark" (click)="changeColour($event)"><icon ion-paintbrush></icon>&nbsp;Change colour</button>   
-    <button id="saveCanvas" balanced (click)="saveCanvas()"><icon share></icon>&nbsp;Save</button>
-    <button id="loadCanvas" secondary (click)="loadCanvas()"><icon download></icon>&nbsp;Load</button> 
+<ion-content>  
+  <ion-row class="col-offset-5">
+    <ion-col class="col-50">
+      <button id="clearSurface" (click)="clearCanvas()" full><icon close-circle></icon>&nbsp;Clear Canvas</button>
+    </ion-col>
+    <ion-col class="col-50">
+      <button id="brushColour" dark class="button-dark" (click)="changeColour($event)" full><icon ion-paintbrush></icon>&nbsp;Change colour</button>
+    </ion-col>
+  </ion-row>
+  <ion-row class="col-offset-5">
+    <ion-col class="col-50">   
+      <button id="saveCanvas" balanced (click)="saveCanvas()" full><icon share></icon>&nbsp;Save</button>
+    </ion-col>
+    <ion-col class="col-50">
+      <button id="loadCanvas" secondary (click)="loadCanvas()" full><icon download></icon>&nbsp;Load</button>
+    </ion-col> 
   </ion-row>
   
-  <ion-row>
-    <canvas id="drawSurface" width="300px" height="500px"></canvas>
+  <ion-row bottom stretch class="responsive-lg">
+    <ion-col>
+        <canvas id="drawSurface" height="300px"></canvas>
+    </ion-col>
   </ion-row>
   
 

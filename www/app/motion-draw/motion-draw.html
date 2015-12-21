@@ -1,0 +1,30 @@
+<ion-navbar *navbar>
+  <a menu-toggle>
+    <icon menu></icon>
+  </a>
+  <ion-title>Motion Draw</ion-title>
+</ion-navbar>
+
+
+<ion-content>  
+  <ion-row class="col-offset-5">
+    <ion-col class="col-50">   
+      <button id="startDraw" balanced (click)="start()" full><icon share></icon>&nbsp;Start</button>
+    </ion-col>
+    <ion-col class="col-50">
+      <button id="stopDraw" secondary (click)="stop()" full><icon download></icon>&nbsp;Stop</button>
+    </ion-col> 
+  </ion-row>
+  
+  <ion-row>
+    X: {{x}}; Y: {{y}}; Z: {{z}} 
+  </ion-row>
+  
+  <ion-row bottom stretch class="responsive-lg">
+    <ion-col>
+        <canvas id="drawSurface" height="400px"></canvas>
+    </ion-col>
+  </ion-row>
+  
+
+</ion-content>
