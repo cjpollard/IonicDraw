@@ -8,9 +8,11 @@ import "./motion-draw.scss";
   providers: [GlobalFunctions]
 })
 export class MotionDrawPage {
-  constructor(nav: NavController, fn: GlobalFunctions, platform: IonicPlatform) {
-    this.nav = nav;
-    this.fn = fn;
+  constructor(
+      public nav: NavController,
+      public fn: GlobalFunctions,
+      platform: IonicPlatform
+      ) {
     this.canvas = document.getElementById("drawSurface");    
     this.context = this.canvas.getContext("2d");
     this.deviceAxis = {};
