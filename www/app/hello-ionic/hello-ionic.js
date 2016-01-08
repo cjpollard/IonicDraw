@@ -8,7 +8,12 @@ import "./hello-ionic.scss";
 export class HelloIonicPage {
   constructor(nav: NavController) {
     this.nav = nav;    
-  }   
+  }     
+  
+  clearPicture() {
+      var clear = document.getElementById('clicky');
+      clear.setAttribute('src', '');
+  }
   
   takePicture() {
     var opts = {};
@@ -19,5 +24,5 @@ export class HelloIonicPage {
     }, function(err) {
       
     }, opts);
-  }
+  }  
 }
