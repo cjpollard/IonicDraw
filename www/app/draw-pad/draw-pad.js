@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, NavController, NavParams} from 'ionic/ionic';
 import {GlobalFunctions} from '../globals';
 
 import "./draw-pad.scss";
@@ -8,7 +8,7 @@ import "./draw-pad.scss";
   providers: [GlobalFunctions]
 })
 export class DrawPadPage {
-  constructor(nav: NavController, fn: GlobalFunctions) {
+  constructor(nav: NavController, fn: GlobalFunctions, public params: NavParams) {
     this.nav = nav;
     this.fn = fn;
     this.imgData = {};
@@ -28,6 +28,12 @@ export class DrawPadPage {
     let context = this.context;
     let that = this;
     that.changeColour();
+    
+    if(that.params) {
+        var baseImage = new Image();
+        baseImage.src = that.params.get('img');
+        context.drawImage(baseImage, 0, 0, 300, 500);
+    }
     
     function getOffset(obj) {
       var offsetLeft = 0;

@@ -1,5 +1,5 @@
 import {Page, NavController} from 'ionic/ionic';
-
+import {DrawPadPage} from '../draw-pad/draw-pad';
 import "./hello-ionic.scss";
 
 @Page({
@@ -25,4 +25,9 @@ export class HelloIonicPage {
       
     }, opts);
   }  
+  
+  pushPicture() {
+      var clicky = document.getElementById('clicky');
+      this.nav.push(DrawPadPage, {'img': clicky.getAttribute('src')})
+  }
 }
