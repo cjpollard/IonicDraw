@@ -1,6 +1,5 @@
 import {Page, NavController, DeviceMotion, Platform} from 'ionic/ionic';
 import {GlobalFunctions} from '../globals';
-import * as Rx from 'rxjs/Rx';
 
 import "./motion-draw.scss";
 
