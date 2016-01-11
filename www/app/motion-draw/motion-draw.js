@@ -18,7 +18,6 @@ export class MotionDrawPage {
     this.deviceAxis = {};
     this.watch;
     this.lastKnownPosition = {x: 200, y: 200};
-    // this.init();
   }
   
   start() {
