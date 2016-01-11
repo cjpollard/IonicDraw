@@ -1,11 +1,11 @@
 import {Page, NavController} from 'ionic/ionic';
 import {DrawPadPage} from '../draw-pad/draw-pad';
-import "./hello-ionic.scss";
+import "./home.scss";
 
 @Page({
-  templateUrl: 'app/hello-ionic/hello-ionic.html'
+  templateUrl: 'app/home/home.html'
 })
-export class HelloIonicPage {
+export class HomePage {
   constructor(nav: NavController) {
     this.nav = nav;    
   }     

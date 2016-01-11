@@ -1,8 +1,6 @@
 import {App, IonicApp, Platform} from 'ionic/ionic';
 
-import {HelloIonicPage} from './hello-ionic/hello-ionic';
-import {ListPage} from './list/list';
-import {SubjectsPage} from './subjects/subjects';
+import {HomePage} from './home/home';
 import {DrawPadPage} from './draw-pad/draw-pad';
 import {MotionDrawPage} from './motion-draw/motion-draw';
 
@@ -23,15 +21,12 @@ class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage },
-      { title: 'Subjects', component: SubjectsPage },
+      { title: 'HomePage', component: HomePage },
       { title: 'DrawPad', component: DrawPadPage },
       { title: 'MotionDraw', component: MotionDrawPage}
     ];
 
-    // make HelloIonicPage the root (or first) page
-    this.rootPage = HelloIonicPage;
+    this.rootPage = HomePage;
   }
 
   initializeApp() {
