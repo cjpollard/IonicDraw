@@ -34,20 +34,6 @@ export class DrawPadPage {
         baseImage.src = that.params.get('img');
         context.drawImage(baseImage, 0, 0, 300, 500);
     }
-    
-    function getOffset(obj) {
-      var offsetLeft = 0;
-      var offsetTop = 0;
-      do {
-        if (!isNaN(obj.offsetLeft)) {
-          offsetLeft += obj.offsetLeft;
-        }
-        if (!isNaN(obj.offsetTop)) {
-          offsetTop += obj.offsetTop;
-        }   
-      } while(obj = obj.offsetParent );
-      return {left: offsetLeft, top: offsetTop};
-    }
         
     var lastPt = new Object();
     var msTouchLast;
@@ -55,32 +41,36 @@ export class DrawPadPage {
     function paint(event) {
       event.preventDefault();
  
-      var offsetLeft = getOffset(canvas).left;
-      var offsetTop = getOffset(canvas).top;
+      var offsetLeft = canvas.getBoundingClientRect().left;
+      var offsetTop = canvas.getBoundingClientRect().top;
+      var heightRatio = 300/canvas.getBoundingClientRect().height;
+      var widthRatio = 300/canvas.getBoundingClientRect().width;
       
       for(var i=0;i<event.touches.length;i++) {
         var id = event.touches[i].identifier;   
         if(lastPt[id]) {
           context.beginPath();
-          context.moveTo(lastPt[id].x-offsetLeft, lastPt[id].y-offsetTop);
-          context.lineTo(event.touches[i].pageX-offsetLeft, event.touches[i].pageY-offsetTop);
+          context.moveTo((lastPt[id].x-offsetLeft)*widthRatio, (lastPt[id].y-offsetTop)*heightRatio);
+          context.lineTo((event.touches[i].clientX-offsetLeft)*widthRatio, (event.touches[i].clientY-offsetTop)*heightRatio);
           context.strokeStyle = that.getCurrentColour();
           context.stroke(); 
         }
-        lastPt[id] = {x:event.touches[i].pageX, y:event.touches[i].pageY};
+        lastPt[id] = {x:event.touches[i].clientX, y:event.touches[i].clientY};
       }
       
     }
     
     function msPaint(event) {
       event.preventDefault();
-      var offsetLeft = getOffset(canvas).left;
-      var offsetTop = getOffset(canvas).top;
+      var offsetLeft = canvas.getBoundingClientRect().left;
+      var offsetTop = canvas.getBoundingClientRect().top;
+      var heightRatio = 300/canvas.getBoundingClientRect().height;
+      var widthRatio = 300/canvas.getBoundingClientRect().width;
       
       if(msTouchLast != null) {
         context.beginPath();
-        context.moveTo(msTouchLast.x-offsetLeft, msTouchLast.y-offsetTop);
-        context.lineTo(event.pageX-offsetLeft, event.pageY-offsetTop);
+        context.moveTo((msTouchLast.x-offsetLeft)*widthRatio, (msTouchLast.y-offsetTop)*heightRatio);
+        context.lineTo((event.pageX-offsetLeft)*widthRatio, (event.pageY-offsetTop)*heightRatio);
         context.strokeStyle = that.getCurrentColour();
         context.stroke();
       }
@@ -116,6 +106,14 @@ export class DrawPadPage {
   clearCanvas() {
     this.context.clearRect(0, 0, 500, 500);
   }
+  
+  colourSwapper(colour: string, attr: string, cssClass: string, newAttr: string) {
+    var colourBtn = document.getElementById("brushColour");
+    this.currentColour = colour;
+    colourBtn.removeAttribute(attr);
+    colourBtn.setAttribute("class", cssClass);
+    colourBtn.setAttribute(newAttr, "");
+  }
     
   changeColour(event) {
     if(event) {
@@ -125,28 +123,16 @@ export class DrawPadPage {
     var colour = colourBtn.classList[0];
     switch(colour) {
       case "button-assertive":
-        this.currentColour = "green";
-        colourBtn.removeAttribute("danger");
-        colourBtn.setAttribute("class", "button-balanced");
-        colourBtn.setAttribute("secondary", "");
+        this.colourSwapper("green", "danger", "button-balanced", "secondary");
         break;
       case "button-balanced":
-        this.currentColour = "blue";
-        colourBtn.removeAttribute("secondary");
-        colourBtn.setAttribute("class", "button-positive");
-        colourBtn.setAttribute("default", "");
+        this.colourSwapper("blue", "secondary", "button-positive", "default");        
         break;
       case "button-positive":
-        this.currentColour = "black";
-        colourBtn.removeAttribute("default");
-        colourBtn.setAttribute("class", "button-dark");
-        colourBtn.setAttribute("dark", "");
+        this.colourSwapper("black", "default", "button-dark", "dark");        
         break;
       case "button-dark":
-        this.currentColour = "red";
-        colourBtn.removeAttribute("dark");
-        colourBtn.setAttribute("class", "button-assertive");
-        colourBtn.setAttribute("danger", "");
+        this.colourSwapper("red", "dark", "button-assertive", "danger");
         break;
       default:
         this.currentColour = "black";
