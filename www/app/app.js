@@ -3,6 +3,7 @@ import {App, IonicApp, Platform} from 'ionic/ionic';
 import {HomePage} from './home/home';
 import {DrawPadPage} from './draw-pad/draw-pad';
 import {MotionDrawPage} from './motion-draw/motion-draw';
+import {NotesPage} from './notes/notes';
 
 import "./app.scss";
 
@@ -23,7 +24,8 @@ class MyApp {
     this.pages = [
       { title: 'HomePage', component: HomePage },
       { title: 'DrawPad', component: DrawPadPage },
-      { title: 'MotionDraw', component: MotionDrawPage}
+      { title: 'MotionDraw', component: MotionDrawPage},
+      { title: 'NotesPage', component: NotesPage}
     ];
 
     this.rootPage = HomePage;

@@ -1,0 +1,23 @@
+<ion-navbar *navbar>
+  <a menu-toggle>
+    <icon menu></icon>
+  </a>
+  <ion-title>Notepad</ion-title>
+</ion-navbar>
+
+
+<ion-content>  
+  <ion-list *ng-for="#note of notes">    
+    <ion-card>
+      <ion-card-header>{{note.title}}</ion-card-header>
+      <ion-card-content>{{note.data}}</ion-card-content>
+    </ion-card>
+  </ion-list>
+  
+  <ion-list inset>
+    <ion-input>
+      <ion-label>Write something...</ion-label>
+      <input type="text" value="">
+    </ion-input>
+  </ion-list>
+</ion-content>
