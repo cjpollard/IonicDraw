@@ -1,0 +1,16 @@
+<ion-navbar *navbar>
+  <a menu-toggle>
+    <icon menu></icon>
+  </a>
+  <ion-title>Gallery</ion-title>
+</ion-navbar>
+
+
+<ion-content padding>
+  <ion-list *ng-for="#image of images">    
+    <ion-card>
+      <img src="{{image}}" />      
+    </ion-card>
+  </ion-list> 
+
+</ion-content>

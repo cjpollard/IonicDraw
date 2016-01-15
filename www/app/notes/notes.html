@@ -12,12 +12,12 @@
       <ion-card-header>{{note.title}}</ion-card-header>
       <ion-card-content>{{note.data}}</ion-card-content>
     </ion-card>
-  </ion-list>
+  </ion-list>  
   
-  <ion-list inset>
-    <ion-input>
-      <ion-label>Write something...</ion-label>
-      <input type="text" value="">
-    </ion-input>
-  </ion-list>
+  <button fab fab-right (click)="addNote()">
+    <icon add></icon>
+  </button>
+  <button fab fab-left danger (click)="deleteAllNotes()">
+    <icon close></icon>
+  </button>
 </ion-content>

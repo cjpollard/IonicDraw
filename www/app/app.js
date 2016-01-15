@@ -4,6 +4,7 @@ import {HomePage} from './home/home';
 import {DrawPadPage} from './draw-pad/draw-pad';
 import {MotionDrawPage} from './motion-draw/motion-draw';
 import {NotesPage} from './notes/notes';
+import {GalleryPage} from './gallery/gallery';
 
 import "./app.scss";
 
@@ -24,8 +25,9 @@ class MyApp {
     this.pages = [
       { title: 'HomePage', component: HomePage },
       { title: 'DrawPad', component: DrawPadPage },
-      { title: 'MotionDraw', component: MotionDrawPage},
-      { title: 'NotesPage', component: NotesPage}
+      { title: 'MotionDraw', component: MotionDrawPage },
+      { title: 'NotesPage', component: NotesPage },
+      { title: 'GalleryPage', component: GalleryPage }
     ];
 
     this.rootPage = HomePage;

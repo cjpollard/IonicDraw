@@ -1,37 +1,34 @@
-import {Page, Storage, SqlStorage, IonicPlatform} from 'ionic/ionic';
-import "./notes.scss";
+import {Page, IonicPlatform, NavController} from 'ionic/ionic';
+import {DataService} from '../data';
+import {EditNotePage} from '../edit-note/edit-note';
 
+import "./notes.scss";
 @Page({
-  templateUrl: 'app/notes/notes.html'
+  templateUrl: 'app/notes/notes.html',
+  providers: [DataService]
 })
 export class NotesPage {
-    constructor() {
-        this.storage = new Storage(SqlStorage);
-    }
-    
-    setName(name) {
-        this.storage.set('name', name);
-    }
-    
-    getName() {
-        this.storage.get('name').then(name => {
-            
-        });
+    constructor(nav: NavController, dataService: DataService) {
+        this.nav = nav;
+        this.dataService = dataService;
+        this.notes = this.dataService.getNotes() || [];
     }
     
     getNotes() {
         return this.notes;
     }
     
-    public notes = [{
-            title: "Title 1",
-            data: "Note 1"
-        },{
-            title: "Title 2",
-            data: "Note 2"
-        },{
-            title: "Title 3",
-            data: "Note 3"
-        }
-    ]
+    addNote() {
+        this.nav.push(EditNotePage);
+    }
+    
+    editNote(note) {
+        this.nav.push(EditNotePage, {
+            note: note
+        });
+    }
+    
+    deleteAllNotes() {
+        this.dataService.deleteAll();
+    }
 }

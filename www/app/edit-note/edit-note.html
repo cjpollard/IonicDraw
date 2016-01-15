@@ -1,0 +1,20 @@
+<ion-navbar *navbar>
+  <a menu-toggle>
+    <icon menu></icon>
+  </a>
+  <ion-title>Edit Note</ion-title>
+</ion-navbar>
+
+<ion-content>
+  <ion-list inset>
+    <ion-input>      
+      <ion-label>Title</ion-label>
+      <input type="text" [(ng-model)]="note.title" value="">
+    </ion-input>
+    <ion-input>      
+      <ion-label>Note</ion-label>
+      <input type="text" [(ng-model)]="note.data" value="">
+    </ion-input>
+  </ion-list>
+  <button full (click)="save()">Save</button>
+</ion-content>
