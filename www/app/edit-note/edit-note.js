@@ -10,12 +10,12 @@ import "./edit-note.scss";
 export class EditNotePage {
     constructor(nav: NavController, params: NavParams, dataService: DataService) {
         this.nav = nav;
-        this.params = params;
+        this.params = params.data;
         this.dataService = dataService;
         this.note = {
-            id: 1,
-            title: "Title goes here",
-            data: "Write something..."
+            id: this.params.id,
+            title: this.params.title,
+            note: this.params.note
         };
     }
     

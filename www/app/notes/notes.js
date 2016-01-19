@@ -11,11 +11,10 @@ export class NotesPage {
     constructor(nav: NavController, dataService: DataService) {
         this.nav = nav;
         this.dataService = dataService;
-        this.notes = this.dataService.getNotes() || [];
-    }
-    
-    getNotes() {
-        return this.notes;
+        this.notes = [{title: "", note: ""}];
+        this.dataService.getNotes((notes) => {
+            this.notes = notes;
+        });
     }
     
     addNote() {
@@ -24,7 +23,9 @@ export class NotesPage {
     
     editNote(note) {
         this.nav.push(EditNotePage, {
-            note: note
+            id: note.id,
+            title: note.title,
+            note: note.note
         });
     }
     

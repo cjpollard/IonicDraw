@@ -6,18 +6,19 @@
 </ion-navbar>
 
 
-<ion-content>  
+<ion-content [(model)]="notes">  
+  
   <ion-list *ng-for="#note of notes">    
-    <ion-card>
+    <ion-card *ng-if="note" (click)="editNote(note)">
       <ion-card-header>{{note.title}}</ion-card-header>
-      <ion-card-content>{{note.data}}</ion-card-content>
+      <ion-card-content>{{note.note}}</ion-card-content>
     </ion-card>
   </ion-list>  
   
-  <button fab fab-right (click)="addNote()">
+  <button fab fab-right fab-bottom (click)="addNote()">
     <icon add></icon>
   </button>
-  <button fab fab-left danger (click)="deleteAllNotes()">
+  <button fab fab-left fab-bottom danger (click)="deleteAllNotes()">
     <icon close></icon>
   </button>
 </ion-content>

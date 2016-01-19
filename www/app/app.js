@@ -5,21 +5,24 @@ import {DrawPadPage} from './draw-pad/draw-pad';
 import {MotionDrawPage} from './motion-draw/motion-draw';
 import {NotesPage} from './notes/notes';
 import {GalleryPage} from './gallery/gallery';
+import {DataService} from './data';
 
 import "./app.scss";
 
 
 @App({
-  templateUrl: 'app/app.html'
+  templateUrl: 'app/app.html',
+  providers: [DataService]
 })
 
 class MyApp {
-  constructor(app: IonicApp, platform: Platform) {
+  constructor(app: IonicApp, platform: Platform, dataService: DataService) {
 
     // set up our app
     this.app = app;
     this.platform = platform;
     this.initializeApp();
+    this.dataService = dataService;
 
     // set our app's pages
     this.pages = [

@@ -1,34 +1,61 @@
-import {Storage, SqlStorage} from 'ionic/ionic';
+import {Platform, Storage, SqlStorage} from 'ionic/ionic';
 import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class DataService {
-    constructor(){
-        this.storage = new Storage(SqlStorage, {name: 'notes'});
-        this.data = null;
-        
-        this.storage.get('notes').then((notes) => {
-            this.data = JSON.parse(notes);
+    constructor(platform: Platform){
+        this.platform = platform;
+        this.platform.ready().then(() => {
+            this.storage = new Storage(SqlStorage);
+            this.db = this.storage._strategy._db;
+            this.db.transaction((tx) => {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, note TEXT)', [], (tx, success) => {
+                    console.log("Success: " + JSON.stringify(success));    
+                }, (tx, error) => {
+                    console.log("ERROR");
+                });  
+            });                            
+        });
+        this.notes = null;
+    }
+    
+    getNotes(callback) {
+        this.platform.ready().then(() => {
+            this.db.transaction((tx) => {
+                tx.executeSql("SELECT * FROM notes", [], (tx, success) => {
+                    this.notes = [];
+                    if(success && success.rows.length > 0) {
+                        for(var i = 0; i < success.rows.length; i++) {
+                            this.notes.push({id: success.rows.item(i).id,title: success.rows.item(i).title, note: success.rows.item(i).note});
+                        }
+                    }
+                    callback(this.notes);
+                }, (tx, error) => {
+                    console.log("ERROR -> " + JSON.stringify(error));
+                    callback({title: "Error", note: "Could not retrieve notes"});
+                });
+            });
         });
     }
     
-    getNotes() {
-        return this.data;
-    }
-    
     saveNote(note) {
-        if(!this.data) {
-            this.data = [note];
-            let newNote = JSON.stringify(note);
-            this.storage.set('notes', newNote);
-        } else {
-            this.data.push(note);
-            let newNote = JSON.stringify(this.data);
-            this.storage.set('notes', newNote);
-        }
+        var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "' WHERE id=" + note.id : "INSERT INTO notes (title, note) VALUES ('" + note.title + "', '" + note.note + "')";
+        this.db.transaction((tx) => {
+            tx.executeSql(query, [], (tx, success) => {
+                console.log(JSON.stringify(success));
+            }, (tx, error) => {
+                console.log("ERROR -> " + JSON.stringify(error));
+            });
+        });        
     }
     
     deleteAll() {
-        this.storage.query('notes', 'drop notes');
+        this.db.transaction((tx) => {
+            tx.executeSql("DELETE FROM notes", [], (tx, success) => {
+                console.log(JSON.stringify(success));
+            }, (tx, error) => {
+                console.log("ERROR -> " + JSON.stringify(error));
+            });
+        });
     }
 }
