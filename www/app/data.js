@@ -4,7 +4,7 @@ import {Injectable} from 'angular2/core';
 @Injectable()
 export class DataService {
     // todo - extend for use with canvas pages
-    constructor(platform: Platform, zone: NgZone){
+    constructor(platform: Platform){
         this.platform = platform;
         this.platform.ready().then(() => {
             this.storage = new Storage(SqlStorage);

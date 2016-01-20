@@ -39,6 +39,7 @@ export class NotesPage {
     }
     
     deleteAllNotes() {
+        // todo - add warning
         this.dataService.deleteAll();
         this.updateNotes();
     }

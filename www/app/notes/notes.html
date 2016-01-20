@@ -8,17 +8,19 @@
 
 <ion-content>  
   
-  <ion-list *ng-for="#note of notes">    
+  <ion-list *ng-for="#note of notes">      
     <ion-card *ng-if="note" (click)="editNote(note)">
       <ion-card-header>{{note.title}}</ion-card-header>
       <ion-card-content>{{note.note}}</ion-card-content>
-    </ion-card>
-  </ion-list>  
+    </ion-card>  
+  </ion-list>
+  <div class="buffer"></div>
   
-  <button fab fab-right fab-bottom (click)="addNote()">
-    <icon add></icon>
-  </button>
-  <button fab fab-left fab-bottom danger (click)="deleteAllNotes()">
-    <icon close></icon>
-  </button>
 </ion-content>
+
+<button fab fab-right fab-bottom (click)="addNote()">
+  <icon add></icon>
+</button>
+<button fab fab-left fab-bottom danger (click)="deleteAllNotes()">
+  <icon close></icon>
+</button>
