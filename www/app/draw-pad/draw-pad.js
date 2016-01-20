@@ -141,6 +141,7 @@ export class DrawPadPage {
   }
     
   saveCanvas() {
+    // todo - use sqlite
     this.imgData = this.context.getImageData(0, 0, 300, 500);
   }
   

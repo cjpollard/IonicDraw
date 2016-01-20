@@ -1,5 +1,6 @@
 import {Page, Storage, SqlStorage, IonicPlatform, NavController, NavParams} from 'ionic/ionic';
 import {DataService} from '../data';
+import {NotesPage} from '../notes/notes';
 import {Note} from '../note';
 import "./edit-note.scss";
 
@@ -21,5 +22,6 @@ export class EditNotePage {
     
     save() {
         this.dataService.saveNote(this.note);
+        this.nav.pop();
     }
 }

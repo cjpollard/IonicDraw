@@ -6,7 +6,7 @@
 </ion-navbar>
 
 
-<ion-content [(model)]="notes">  
+<ion-content>  
   
   <ion-list *ng-for="#note of notes">    
     <ion-card *ng-if="note" (click)="editNote(note)">

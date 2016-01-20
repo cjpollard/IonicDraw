@@ -1,10 +1,13 @@
 import {Platform, Storage, SqlStorage} from 'ionic/ionic';
+import {NgZone} from 'angular2/angular2';
 import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class DataService {
-    constructor(platform: Platform){
+    // todo - extend for use with canvas pages
+    constructor(platform: Platform, zone: NgZone){
         this.platform = platform;
+        this.zone = zone;
         this.platform.ready().then(() => {
             this.storage = new Storage(SqlStorage);
             this.db = this.storage._strategy._db;
@@ -39,9 +42,11 @@ export class DataService {
     }
     
     saveNote(note) {
+        let that = this;
         var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "' WHERE id=" + note.id : "INSERT INTO notes (title, note) VALUES ('" + note.title + "', '" + note.note + "')";
         this.db.transaction((tx) => {
             tx.executeSql(query, [], (tx, success) => {
+                that.zone.run(() => {});
                 console.log(JSON.stringify(success));
             }, (tx, error) => {
                 console.log("ERROR -> " + JSON.stringify(error));

@@ -12,9 +12,18 @@ export class NotesPage {
         this.nav = nav;
         this.dataService = dataService;
         this.notes = [{title: "", note: ""}];
+        this.updateNotes();
+    }
+    
+    updateNotes() {
+        let that = this;
         this.dataService.getNotes((notes) => {
-            this.notes = notes;
-        });
+            that.notes = notes;
+        });        
+    }
+    
+    onPageDidEnter() {
+        this.updateNotes();
     }
     
     addNote() {
@@ -31,5 +40,6 @@ export class NotesPage {
     
     deleteAllNotes() {
         this.dataService.deleteAll();
+        this.updateNotes();
     }
 }
