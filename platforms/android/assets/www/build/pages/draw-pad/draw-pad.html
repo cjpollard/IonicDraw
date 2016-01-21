@@ -1,0 +1,34 @@
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Drawpad</ion-title>
+</ion-navbar>
+
+
+<ion-content>  
+  <ion-row class="col-offset-5">
+    <ion-col class="col-50">
+      <button id="clearSurface" (click)="clearCanvas()" full><ion-icon name="close-circle"></ion-icon>&nbsp;Clear Canvas</button>
+    </ion-col>
+    <ion-col class="col-50">
+      <button id="brushColour" class="button-dark disable-hover" color="{{buttonColour}}" (click)="changeColour($event)" full><ion-icon name="brush"></ion-icon>&nbsp;Change colour</button>
+    </ion-col>
+  </ion-row>
+  <ion-row class="col-offset-5">
+    <ion-col class="col-50">   
+      <button id="saveCanvas" balanced (click)="saveCanvas()" full><ion-icon name="share"></ion-icon>&nbsp;Save</button>
+    </ion-col>
+    <ion-col class="col-50">
+      <button id="loadCanvas" secondary (click)="loadCanvas()" full><ion-icon name="download"></ion-icon>&nbsp;Load</button>
+    </ion-col> 
+  </ion-row>
+  
+  <ion-row bottom stretch class="responsive-lg">
+    <ion-col>
+        <canvas id="drawSurface" height="300px"></canvas>
+    </ion-col>
+  </ion-row>
+  
+
+</ion-content>
