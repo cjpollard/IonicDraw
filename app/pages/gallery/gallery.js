@@ -11,15 +11,17 @@ export class GalleryPage {
     }
     
     getImages() {
-        window.imagePicker.getPictures(function(results) {
-            for(let i=0; i<results.length; i++) {
-                this.images.push(results[i]);
-            }            
-        }, function(error) {
-            console.log('Something bad happened...\n' + error);    
-        }, {
-            maximumImagesCount: 10,
-            width: 500
+        this.platform.ready().then(() => {
+            window.imagePicker.getPictures(function(results) {
+                for(let i=0; i<results.length; i++) {
+                    this.images.push(results[i]);
+                }            
+            }, function(error) {
+                console.log('Something bad happened...\n' + error);    
+            }, {
+                maximumImagesCount: 10,
+                width: 500
+            });            
         });
     }
 }

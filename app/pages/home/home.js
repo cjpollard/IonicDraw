@@ -18,12 +18,13 @@ export class HomePage {
   takePicture() {
     var opts = {};
     var clicky = document.getElementById('clicky');
-    
-    navigator.camera.getPicture(function(imageURI) {
-      clicky.setAttribute('src', imageURI);
-    }, function(err) {
-      
-    }, opts);
+    this.platform.ready().then(() => {
+        navigator.camera.getPicture(function(imageURI) {
+        clicky.setAttribute('src', imageURI);
+        }, function(err) {
+        
+        }, opts);        
+    });
   }  
   
   pushPicture() {
