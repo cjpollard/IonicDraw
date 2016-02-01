@@ -15,7 +15,8 @@ export class EditNotePage {
         this.note = {
             id: this.params.id,
             title: this.params.title,
-            note: this.params.note
+            note: this.params.note,
+            type: "note"
         };
     }
     

@@ -3216,10 +3216,10 @@
 	var ionic_1 = __webpack_require__(6);
 	var home_1 = __webpack_require__(353);
 	var draw_pad_1 = __webpack_require__(354);
-	var motion_draw_1 = __webpack_require__(356);
-	var notes_1 = __webpack_require__(357);
+	var motion_draw_1 = __webpack_require__(357);
+	var notes_1 = __webpack_require__(358);
 	var gallery_1 = __webpack_require__(360);
-	var data_1 = __webpack_require__(358);
+	var data_1 = __webpack_require__(355);
 	var MyApp = (function () {
 	    function MyApp(app, platform, dataService) {
 	        // set up our app
@@ -61378,10 +61378,12 @@
 	    HomePage.prototype.takePicture = function () {
 	        var opts = {};
 	        var clicky = document.getElementById('clicky');
-	        navigator.camera.getPicture(function (imageURI) {
-	            clicky.setAttribute('src', imageURI);
-	        }, function (err) {
-	        }, opts);
+	        this.platform.ready().then(function () {
+	            navigator.camera.getPicture(function (imageURI) {
+	                clicky.setAttribute('src', imageURI);
+	            }, function (err) {
+	            }, opts);
+	        });
 	    };
 	    HomePage.prototype.pushPicture = function () {
 	        var clicky = document.getElementById('clicky');
@@ -61413,12 +61415,14 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var globals_1 = __webpack_require__(355);
+	var data_1 = __webpack_require__(355);
+	var globals_1 = __webpack_require__(356);
 	var DrawPadPage = (function () {
-	    function DrawPadPage(nav, fn, params) {
+	    function DrawPadPage(nav, fn, params, dataService) {
 	        this.params = params;
 	        this.nav = nav;
 	        this.fn = fn;
+	        this.dataService = dataService;
 	        this.imgData = {};
 	        this.canvas = document.getElementById("drawSurface");
 	        this.context = this.canvas.getContext("2d");
@@ -61529,9 +61533,40 @@
 	                break;
 	        }
 	    };
+	    DrawPadPage.prototype.getTitle = function (callback) {
+	        var prompt = ionic_1.Alert.create({
+	            title: 'Save as...',
+	            body: "Enter a name for this effort",
+	            inputs: [
+	                {
+	                    name: 'title',
+	                    placeholder: 'Title'
+	                },
+	            ],
+	            buttons: [
+	                {
+	                    text: 'Cancel',
+	                    handler: function (data) {
+	                        console.log('Cancel clicked');
+	                    }
+	                },
+	                {
+	                    text: 'Save',
+	                    handler: function (data) {
+	                        callback(data.title);
+	                    }
+	                }
+	            ]
+	        });
+	        this.nav.present(prompt);
+	    };
 	    DrawPadPage.prototype.saveCanvas = function () {
+	        var _this = this;
 	        // todo - use sqlite
 	        this.imgData = this.context.getImageData(0, 0, 300, 500);
+	        this.getTitle(function (imgTitle) {
+	            _this.dataService.saveNote({ title: imgTitle, note: JSON.stringify(_this.imgData), type: "canvas" });
+	        });
 	    };
 	    DrawPadPage.prototype.loadCanvas = function () {
 	        this.context.putImageData(this.imgData, 0, 0);
@@ -61539,18 +61574,100 @@
 	    DrawPadPage = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/draw-pad/draw-pad.html',
-	            providers: [globals_1.GlobalFunctions]
+	            providers: [globals_1.GlobalFunctions, data_1.DataService]
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof globals_1.GlobalFunctions !== 'undefined' && globals_1.GlobalFunctions) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof globals_1.GlobalFunctions !== 'undefined' && globals_1.GlobalFunctions) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object, (typeof (_d = typeof data_1.DataService !== 'undefined' && data_1.DataService) === 'function' && _d) || Object])
 	    ], DrawPadPage);
 	    return DrawPadPage;
-	    var _a, _b, _c;
+	    var _a, _b, _c, _d;
 	})();
 	exports.DrawPadPage = DrawPadPage;
 
 
 /***/ },
 /* 355 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var core_1 = __webpack_require__(8);
+	var DataService = (function () {
+	    // todo - extend for use with canvas pages
+	    function DataService(platform) {
+	        var _this = this;
+	        this.platform = platform;
+	        this.platform.ready().then(function () {
+	            _this.storage = new ionic_1.Storage(ionic_1.SqlStorage);
+	            _this.db = _this.storage._strategy._db;
+	            _this.db.transaction(function (tx) {
+	                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, note TEXT, type TEXT)', [], function (tx, success) {
+	                    console.log("Success: " + JSON.stringify(success));
+	                }, function (tx, error) {
+	                    console.log("ERROR");
+	                });
+	            });
+	        });
+	        this.notes = null;
+	    }
+	    DataService.prototype.getNotes = function (type, callback) {
+	        var _this = this;
+	        this.platform.ready().then(function () {
+	            _this.db.transaction(function (tx) {
+	                tx.executeSql("SELECT * FROM notes WHERE type='" + type + "'", [], function (tx, success) {
+	                    _this.notes = [];
+	                    if (success && success.rows.length > 0) {
+	                        for (var i = 0; i < success.rows.length; i++) {
+	                            _this.notes.push({ id: success.rows.item(i).id, title: success.rows.item(i).title, note: success.rows.item(i).note });
+	                        }
+	                    }
+	                    callback(_this.notes);
+	                }, function (tx, error) {
+	                    console.log("ERROR -> " + JSON.stringify(error));
+	                    callback({ title: "Error", note: "Could not retrieve notes" });
+	                });
+	            });
+	        });
+	    };
+	    DataService.prototype.saveNote = function (note) {
+	        var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
+	            : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
+	        this.db.transaction(function (tx) {
+	            tx.executeSql(query, [], function (tx, success) {
+	                console.log(JSON.stringify(success));
+	            }, function (tx, error) {
+	                console.log("ERROR -> " + JSON.stringify(error));
+	            });
+	        });
+	    };
+	    DataService.prototype.deleteAll = function () {
+	        this.db.transaction(function (tx) {
+	            tx.executeSql("DELETE FROM notes", [], function (tx, success) {
+	                console.log(JSON.stringify(success));
+	            }, function (tx, error) {
+	                console.log("ERROR -> " + JSON.stringify(error));
+	            });
+	        });
+	    };
+	    DataService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _a) || Object])
+	    ], DataService);
+	    return DataService;
+	    var _a;
+	})();
+	exports.DataService = DataService;
+
+
+/***/ },
+/* 356 */
 /***/ function(module, exports) {
 
 	var GlobalFunctions = (function () {
@@ -61568,7 +61685,7 @@
 
 
 /***/ },
-/* 356 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61581,7 +61698,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var globals_1 = __webpack_require__(355);
+	var globals_1 = __webpack_require__(356);
 	var MotionDrawPage = (function () {
 	    function MotionDrawPage(nav, fn) {
 	        this.nav = nav;
@@ -61649,7 +61766,7 @@
 
 
 /***/ },
-/* 357 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61662,7 +61779,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var data_1 = __webpack_require__(358);
+	var data_1 = __webpack_require__(355);
 	var edit_note_1 = __webpack_require__(359);
 	var NotesPage = (function () {
 	    function NotesPage(nav, dataService) {
@@ -61673,7 +61790,7 @@
 	    }
 	    NotesPage.prototype.updateNotes = function () {
 	        var that = this;
-	        this.dataService.getNotes(function (notes) {
+	        this.dataService.getNotes("note", function (notes) {
 	            that.notes = notes;
 	        });
 	    };
@@ -61729,87 +61846,6 @@
 
 
 /***/ },
-/* 358 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var core_1 = __webpack_require__(8);
-	var DataService = (function () {
-	    // todo - extend for use with canvas pages
-	    function DataService(platform) {
-	        var _this = this;
-	        this.platform = platform;
-	        this.platform.ready().then(function () {
-	            _this.storage = new ionic_1.Storage(ionic_1.SqlStorage);
-	            _this.db = _this.storage._strategy._db;
-	            _this.db.transaction(function (tx) {
-	                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, note TEXT)', [], function (tx, success) {
-	                    console.log("Success: " + JSON.stringify(success));
-	                }, function (tx, error) {
-	                    console.log("ERROR");
-	                });
-	            });
-	        });
-	        this.notes = null;
-	    }
-	    DataService.prototype.getNotes = function (callback) {
-	        var _this = this;
-	        this.platform.ready().then(function () {
-	            _this.db.transaction(function (tx) {
-	                tx.executeSql("SELECT * FROM notes", [], function (tx, success) {
-	                    _this.notes = [];
-	                    if (success && success.rows.length > 0) {
-	                        for (var i = 0; i < success.rows.length; i++) {
-	                            _this.notes.push({ id: success.rows.item(i).id, title: success.rows.item(i).title, note: success.rows.item(i).note });
-	                        }
-	                    }
-	                    callback(_this.notes);
-	                }, function (tx, error) {
-	                    console.log("ERROR -> " + JSON.stringify(error));
-	                    callback({ title: "Error", note: "Could not retrieve notes" });
-	                });
-	            });
-	        });
-	    };
-	    DataService.prototype.saveNote = function (note) {
-	        var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "' WHERE id=" + note.id : "INSERT INTO notes (title, note) VALUES ('" + note.title + "', '" + note.note + "')";
-	        this.db.transaction(function (tx) {
-	            tx.executeSql(query, [], function (tx, success) {
-	                console.log(JSON.stringify(success));
-	            }, function (tx, error) {
-	                console.log("ERROR -> " + JSON.stringify(error));
-	            });
-	        });
-	    };
-	    DataService.prototype.deleteAll = function () {
-	        this.db.transaction(function (tx) {
-	            tx.executeSql("DELETE FROM notes", [], function (tx, success) {
-	                console.log(JSON.stringify(success));
-	            }, function (tx, error) {
-	                console.log("ERROR -> " + JSON.stringify(error));
-	            });
-	        });
-	    };
-	    DataService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _a) || Object])
-	    ], DataService);
-	    return DataService;
-	    var _a;
-	})();
-	exports.DataService = DataService;
-
-
-/***/ },
 /* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -61823,7 +61859,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var data_1 = __webpack_require__(358);
+	var data_1 = __webpack_require__(355);
 	var EditNotePage = (function () {
 	    function EditNotePage(nav, params, dataService) {
 	        this.nav = nav;
@@ -61832,7 +61868,8 @@
 	        this.note = {
 	            id: this.params.id,
 	            title: this.params.title,
-	            note: this.params.note
+	            note: this.params.note,
+	            type: "note"
 	        };
 	    }
 	    EditNotePage.prototype.save = function () {
@@ -61872,15 +61909,17 @@
 	        this.getImages();
 	    }
 	    GalleryPage.prototype.getImages = function () {
-	        window.imagePicker.getPictures(function (results) {
-	            for (var i = 0; i < results.length; i++) {
-	                this.images.push(results[i]);
-	            }
-	        }, function (error) {
-	            console.log('Something bad happened...\n' + error);
-	        }, {
-	            maximumImagesCount: 10,
-	            width: 500
+	        this.platform.ready().then(function () {
+	            window.imagePicker.getPictures(function (results) {
+	                for (var i = 0; i < results.length; i++) {
+	                    this.images.push(results[i]);
+	                }
+	            }, function (error) {
+	                console.log('Something bad happened...\n' + error);
+	            }, {
+	                maximumImagesCount: 10,
+	                width: 500
+	            });
 	        });
 	    };
 	    GalleryPage = __decorate([

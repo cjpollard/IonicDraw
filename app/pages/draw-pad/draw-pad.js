@@ -1,15 +1,17 @@
-import {Page, NavController, NavParams} from 'ionic/ionic';
+import {Page, NavController, NavParams, Alert} from 'ionic/ionic';
+import {DataService} from '../../data';
 import {GlobalFunctions} from '../../globals';
 
 
 @Page({
   templateUrl: 'build/pages/draw-pad/draw-pad.html',
-  providers: [GlobalFunctions]
+  providers: [GlobalFunctions, DataService]
 })
 export class DrawPadPage {
-  constructor(nav: NavController, fn: GlobalFunctions, public params: NavParams) {
+  constructor(nav: NavController, fn: GlobalFunctions, public params: NavParams, dataService: DataService) {
     this.nav = nav;
     this.fn = fn;
+    this.dataService = dataService;
     this.imgData = {};
     this.canvas = document.getElementById("drawSurface");    
     this.context = this.canvas.getContext("2d");
@@ -138,14 +140,45 @@ export class DrawPadPage {
         break;
     }
   }
+  
+  getTitle(callback) {
+      let prompt = Alert.create({
+          title: 'Save as...',
+      body: "Enter a name for this effort",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Title'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            callback(data.title);
+          }
+        }
+      ]
+      });
+      this.nav.present(prompt);
+  }
     
   saveCanvas() {
     // todo - use sqlite
     this.imgData = this.context.getImageData(0, 0, 300, 500);
+    this.getTitle((imgTitle) => {
+        this.dataService.saveNote({title: imgTitle, note: JSON.stringify(this.imgData), type: "canvas"});        
+    });
   }
   
   loadCanvas() {
-    this.context.putImageData(this.imgData, 0, 0);
+    this.context.putImageData(this.imgData, 0, 0);    
   }
   
 }

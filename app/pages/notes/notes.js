@@ -17,7 +17,7 @@ export class NotesPage {
     
     updateNotes() {
         let that = this;
-        this.dataService.getNotes((notes) => {
+        this.dataService.getNotes("note", (notes) => {
             that.notes = notes;
         });        
     }

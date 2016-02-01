@@ -2,7 +2,8 @@ export class Note {
     constructor(
         public id: number,
         public title: string,
-        public data: string
+        public note: string,
+        public type: string
     ) {
         
     }

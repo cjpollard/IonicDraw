@@ -10,7 +10,7 @@ export class DataService {
             this.storage = new Storage(SqlStorage);
             this.db = this.storage._strategy._db;
             this.db.transaction((tx) => {
-                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, note TEXT)', [], (tx, success) => {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, note TEXT, type TEXT)', [], (tx, success) => {
                     console.log("Success: " + JSON.stringify(success));    
                 }, (tx, error) => {
                     console.log("ERROR");
@@ -20,10 +20,10 @@ export class DataService {
         this.notes = null;
     }
     
-    getNotes(callback) {
+    getNotes(type: string, callback) {
         this.platform.ready().then(() => {
             this.db.transaction((tx) => {
-                tx.executeSql("SELECT * FROM notes", [], (tx, success) => {
+                tx.executeSql("SELECT * FROM notes WHERE type='" + type + "'", [], (tx, success) => {
                     this.notes = [];
                     if(success && success.rows.length > 0) {
                         for(var i = 0; i < success.rows.length; i++) {
@@ -40,7 +40,8 @@ export class DataService {
     }
     
     saveNote(note) {
-        var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "' WHERE id=" + note.id : "INSERT INTO notes (title, note) VALUES ('" + note.title + "', '" + note.note + "')";
+        var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
+                            : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
         this.db.transaction((tx) => {
             tx.executeSql(query, [], (tx, success) => {
                 console.log(JSON.stringify(success));
