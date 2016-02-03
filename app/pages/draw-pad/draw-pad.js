@@ -170,7 +170,7 @@ export class DrawPadPage {
   }
     
   saveCanvas() {
-    // todo - use sqlite
+    // todo - add error handling
     this.imgData = this.context.getImageData(0, 0, 300, 500);
     this.getTitle((imgTitle) => {
         this.dataService.saveNote({title: imgTitle, note: JSON.stringify(this.imgData), type: "canvas"});        
@@ -178,6 +178,7 @@ export class DrawPadPage {
   }
   
   loadCanvas() {
+    // todo - link with dataService, add error handling
     this.context.putImageData(this.imgData, 0, 0);    
   }
   

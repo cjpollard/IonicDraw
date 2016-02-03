@@ -1,4 +1,4 @@
-import {Page, Storage, SqlStorage, IonicPlatform, NavController, NavParams} from 'ionic/ionic';
+import {Page, Storage, SqlStorage, IonicPlatform, NavController, NavParams, Alert} from 'ionic/ionic';
 import {DataService} from '../../data';
 import {NotesPage} from '../notes/notes';
 
@@ -21,7 +21,33 @@ export class EditNotePage {
     }
     
     save() {
-        this.dataService.saveNote(this.note);
-        this.nav.pop();
+        this.dataService.saveNote(this.note, () => {
+            var that = this;
+            let alert = Alert.create({
+                title: 'Note saved',
+                message: 'Your note was saved successfully.',
+                buttons: [{
+                    text: 'Thanks?',
+                    handler: () => {
+                        that.nav.remove(1);
+                        that.nav.pop();
+                    }
+                }] 
+            });
+            this.nav.present(alert);            
+        }, (error: Object) => {
+            var that = this;
+            let alert = Alert.create({
+                title: 'Oops',
+                message: 'Something happened, maybe you can make sense of this...\n' + JSON.stringify(error) + '\n ... No? Okay, just hit the button to make it go away.',
+                buttons: [{
+                    text: 'Argh!',
+                    handler: () => {
+                        that.nav.remove(1);
+                    }
+                }] 
+            });
+            this.nav.present(alert);            
+        });
     }
 }

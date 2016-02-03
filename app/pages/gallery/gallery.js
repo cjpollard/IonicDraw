@@ -1,13 +1,14 @@
-import {Page, IonicPlaform} from 'ionic/ionic';
+import {Page, IonicPlaform, Platform} from 'ionic/ionic';
 
 
 @Page({
     templateUrl: 'build/pages/gallery/gallery.html'    
 })
 export class GalleryPage {
-    constructor() {
+    constructor(platform: Platform) {
         this.images = [];
         this.getImages();
+        this.platform = platform;
     }
     
     getImages() {

@@ -1,4 +1,4 @@
-import {Page, NavController} from 'ionic/ionic';
+import {Page, NavController, Platform} from 'ionic/ionic';
 import {DrawPadPage} from '../draw-pad/draw-pad';
 
 
@@ -6,8 +6,9 @@ import {DrawPadPage} from '../draw-pad/draw-pad';
   templateUrl: 'build/pages/home/home.html'
 })
 export class HomePage {
-  constructor(nav: NavController) {
+  constructor(nav: NavController, platform: Platform) {
     this.nav = nav;    
+    this.platform = platform;
   }     
   
   clearPicture() {

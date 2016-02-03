@@ -10,7 +10,7 @@ export class DataService {
             this.storage = new Storage(SqlStorage);
             this.db = this.storage._strategy._db;
             this.db.transaction((tx) => {
-                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, note TEXT, type TEXT)', [], (tx, success) => {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT CHECK(title != "undefined"), note TEXT CHECK(note != "undefined"), type TEXT)', [], (tx, success) => {
                     console.log("Success: " + JSON.stringify(success));    
                 }, (tx, error) => {
                     console.log("ERROR");
@@ -20,7 +20,7 @@ export class DataService {
         this.notes = null;
     }
     
-    getNotes(type: string, callback) {
+    getNotes(type: string, callback: (notes: Object) => void) {
         this.platform.ready().then(() => {
             this.db.transaction((tx) => {
                 tx.executeSql("SELECT * FROM notes WHERE type='" + type + "'", [], (tx, success) => {
@@ -39,19 +39,21 @@ export class DataService {
         });
     }
     
-    saveNote(note) {
+    saveNote(note: Object, successCb, errorCb) {
         var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
                             : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
         this.db.transaction((tx) => {
             tx.executeSql(query, [], (tx, success) => {
                 console.log(JSON.stringify(success));
+                successCb();
             }, (tx, error) => {
                 console.log("ERROR -> " + JSON.stringify(error));
+                errorCb(error);
             });
         });        
     }
     
-    deleteAll() {
+    deleteAll(type: string) {
         this.db.transaction((tx) => {
             tx.executeSql("DELETE FROM notes", [], (tx, success) => {
                 console.log(JSON.stringify(success));

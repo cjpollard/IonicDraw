@@ -61368,8 +61368,9 @@
 	var ionic_1 = __webpack_require__(6);
 	var draw_pad_1 = __webpack_require__(354);
 	var HomePage = (function () {
-	    function HomePage(nav) {
+	    function HomePage(nav, platform) {
 	        this.nav = nav;
+	        this.platform = platform;
 	    }
 	    HomePage.prototype.clearPicture = function () {
 	        var clear = document.getElementById('clicky');
@@ -61393,10 +61394,10 @@
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/home/home.html'
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _b) || Object])
 	    ], HomePage);
 	    return HomePage;
-	    var _a;
+	    var _a, _b;
 	})();
 	exports.HomePage = HomePage;
 
@@ -61562,13 +61563,14 @@
 	    };
 	    DrawPadPage.prototype.saveCanvas = function () {
 	        var _this = this;
-	        // todo - use sqlite
+	        // todo - add error handling
 	        this.imgData = this.context.getImageData(0, 0, 300, 500);
 	        this.getTitle(function (imgTitle) {
 	            _this.dataService.saveNote({ title: imgTitle, note: JSON.stringify(_this.imgData), type: "canvas" });
 	        });
 	    };
 	    DrawPadPage.prototype.loadCanvas = function () {
+	        // todo - link with dataService, add error handling
 	        this.context.putImageData(this.imgData, 0, 0);
 	    };
 	    DrawPadPage = __decorate([
@@ -61608,7 +61610,7 @@
 	            _this.storage = new ionic_1.Storage(ionic_1.SqlStorage);
 	            _this.db = _this.storage._strategy._db;
 	            _this.db.transaction(function (tx) {
-	                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, note TEXT, type TEXT)', [], function (tx, success) {
+	                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT CHECK(title != "undefined"), note TEXT CHECK(note != "undefined"), type TEXT)', [], function (tx, success) {
 	                    console.log("Success: " + JSON.stringify(success));
 	                }, function (tx, error) {
 	                    console.log("ERROR");
@@ -61636,18 +61638,20 @@
 	            });
 	        });
 	    };
-	    DataService.prototype.saveNote = function (note) {
+	    DataService.prototype.saveNote = function (note, successCb, errorCb) {
 	        var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
 	            : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
 	        this.db.transaction(function (tx) {
 	            tx.executeSql(query, [], function (tx, success) {
 	                console.log(JSON.stringify(success));
+	                successCb();
 	            }, function (tx, error) {
 	                console.log("ERROR -> " + JSON.stringify(error));
+	                errorCb(error);
 	            });
 	        });
 	    };
-	    DataService.prototype.deleteAll = function () {
+	    DataService.prototype.deleteAll = function (type) {
 	        this.db.transaction(function (tx) {
 	            tx.executeSql("DELETE FROM notes", [], function (tx, success) {
 	                console.log(JSON.stringify(success));
@@ -61873,8 +61877,35 @@
 	        };
 	    }
 	    EditNotePage.prototype.save = function () {
-	        this.dataService.saveNote(this.note);
-	        this.nav.pop();
+	        var _this = this;
+	        this.dataService.saveNote(this.note, function () {
+	            var that = _this;
+	            var alert = ionic_1.Alert.create({
+	                title: 'Note saved',
+	                message: 'Your note was saved successfully.',
+	                buttons: [{
+	                        text: 'Thanks?',
+	                        handler: function () {
+	                            that.nav.remove(1);
+	                            that.nav.pop();
+	                        }
+	                    }]
+	            });
+	            _this.nav.present(alert);
+	        }, function (error) {
+	            var that = _this;
+	            var alert = ionic_1.Alert.create({
+	                title: 'Oops',
+	                message: 'Something happened, maybe you can make sense of this...\n' + JSON.stringify(error) + '\n ... No? Okay, just hit the button to make it go away.',
+	                buttons: [{
+	                        text: 'Argh!',
+	                        handler: function () {
+	                            that.nav.remove(1);
+	                        }
+	                    }]
+	            });
+	            _this.nav.present(alert);
+	        });
 	    };
 	    EditNotePage = __decorate([
 	        ionic_1.Page({
@@ -61904,9 +61935,10 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var GalleryPage = (function () {
-	    function GalleryPage() {
+	    function GalleryPage(platform) {
 	        this.images = [];
 	        this.getImages();
+	        this.platform = platform;
 	    }
 	    GalleryPage.prototype.getImages = function () {
 	        this.platform.ready().then(function () {
@@ -61926,9 +61958,10 @@
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/gallery/gallery.html'
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _a) || Object])
 	    ], GalleryPage);
 	    return GalleryPage;
+	    var _a;
 	})();
 	exports.GalleryPage = GalleryPage;
 
