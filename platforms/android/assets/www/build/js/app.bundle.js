@@ -62116,15 +62116,19 @@
 	var data_1 = __webpack_require__(356);
 	var globals_1 = __webpack_require__(357);
 	var DrawPadPage = (function () {
-	    function DrawPadPage(nav, fn, params, dataService) {
+	    function DrawPadPage(nav, fn, params, dataService, platform) {
+	        var _this = this;
 	        this.params = params;
 	        this.nav = nav;
 	        this.fn = fn;
+	        this.platform = platform;
 	        this.dataService = dataService;
 	        this.imgData = {};
 	        this.currentColour = "black";
 	        this.buttonColour = "dark";
-	        this.init();
+	        this.platform.ready().then(function () {
+	            _this.init();
+	        });
 	    }
 	    DrawPadPage.prototype.getCurrentColour = function () {
 	        return this.currentColour;
@@ -62275,10 +62279,10 @@
 	            templateUrl: 'build/pages/draw-pad/draw-pad.html',
 	            providers: [globals_1.GlobalFunctions, data_1.DataService]
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof globals_1.GlobalFunctions !== 'undefined' && globals_1.GlobalFunctions) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object, (typeof (_d = typeof data_1.DataService !== 'undefined' && data_1.DataService) === 'function' && _d) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof globals_1.GlobalFunctions !== 'undefined' && globals_1.GlobalFunctions) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.NavParams !== 'undefined' && ionic_1.NavParams) === 'function' && _c) || Object, (typeof (_d = typeof data_1.DataService !== 'undefined' && data_1.DataService) === 'function' && _d) || Object, (typeof (_e = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _e) || Object])
 	    ], DrawPadPage);
 	    return DrawPadPage;
-	    var _a, _b, _c, _d;
+	    var _a, _b, _c, _d, _e;
 	})();
 	exports.DrawPadPage = DrawPadPage;
 
@@ -62410,12 +62414,16 @@
 	var ionic_1 = __webpack_require__(6);
 	var globals_1 = __webpack_require__(357);
 	var MotionDrawPage = (function () {
-	    function MotionDrawPage(nav, fn) {
+	    function MotionDrawPage(nav, fn, platform) {
+	        var _this = this;
 	        this.nav = nav;
 	        this.fn = fn;
-	        this.canvas = document.getElementById("drawSurface");
-	        this.context = this.canvas.getContext("2d");
-	        this.context.fillStyle = "rgba(0, 0, 0, 0.5)";
+	        this.platform = platform;
+	        this.platform.ready().then(function () {
+	            _this.canvas = document.getElementById("drawSurface");
+	            _this.context = _this.canvas.getContext("2d");
+	            _this.context.fillStyle = "rgba(0, 0, 0, 0.5)";
+	        });
 	        this.deviceAxis = {};
 	        this.watch;
 	        this.lastKnownPosition = { x: 200, y: 200 };
@@ -62467,10 +62475,10 @@
 	            templateUrl: 'build/pages/motion-draw/motion-draw.html',
 	            providers: [globals_1.GlobalFunctions]
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof globals_1.GlobalFunctions !== 'undefined' && globals_1.GlobalFunctions) === 'function' && _b) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof globals_1.GlobalFunctions !== 'undefined' && globals_1.GlobalFunctions) === 'function' && _b) || Object, (typeof (_c = typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform) === 'function' && _c) || Object])
 	    ], MotionDrawPage);
 	    return MotionDrawPage;
-	    var _a, _b;
+	    var _a, _b, _c;
 	})();
 	exports.MotionDrawPage = MotionDrawPage;
 

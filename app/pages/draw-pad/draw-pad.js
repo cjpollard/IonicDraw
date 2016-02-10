@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams, Alert} from 'ionic/ionic';
+import {Page, NavController, NavParams, Alert, Platform} from 'ionic/ionic';
 import {DataService} from '../../data';
 import {GlobalFunctions} from '../../globals';
 
@@ -8,16 +8,17 @@ import {GlobalFunctions} from '../../globals';
   providers: [GlobalFunctions, DataService]
 })
 export class DrawPadPage {
-  constructor(nav: NavController, fn: GlobalFunctions, public params: NavParams, dataService: DataService) {
+  constructor(nav: NavController, fn: GlobalFunctions, public params: NavParams, dataService: DataService, platform: Platform) {
     this.nav = nav;
     this.fn = fn;
+    this.platform = platform;
     this.dataService = dataService;
     this.imgData = {};
-    this.canvas = document.getElementById("drawSurface");    
-    this.context = this.canvas.getContext("2d");
     this.currentColour = "black";
     this.buttonColour = "dark";
-    this.init();
+    this.platform.ready().then(() => {
+        this.init();        
+    });
   }
   
   getCurrentColour() {
@@ -26,6 +27,8 @@ export class DrawPadPage {
     
   init() {    
     
+    this.canvas = document.getElementById("drawSurface");    
+    this.context = this.canvas.getContext("2d");
     let canvas = this.canvas;
     let context = this.context;
     let that = this;

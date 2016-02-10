@@ -9,11 +9,15 @@ import {GlobalFunctions} from '../../globals';
 export class MotionDrawPage {
   constructor(
       public nav: NavController,
-      public fn: GlobalFunctions 
+      public fn: GlobalFunctions,
+      platform: Platform 
       ) {
-    this.canvas = document.getElementById("drawSurface");    
-    this.context = this.canvas.getContext("2d");
-    this.context.fillStyle = "rgba(0, 0, 0, 0.5)";
+    this.platform = platform;
+    this.platform.ready().then(() => {
+        this.canvas = document.getElementById("drawSurface");    
+        this.context = this.canvas.getContext("2d");        
+        this.context.fillStyle = "rgba(0, 0, 0, 0.5)";
+    });
     this.deviceAxis = {};
     this.watch;
     this.lastKnownPosition = {x: 200, y: 200};

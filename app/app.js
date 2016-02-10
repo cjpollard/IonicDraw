@@ -5,6 +5,7 @@ import {DrawPadPage} from './pages/draw-pad/draw-pad';
 import {MotionDrawPage} from './pages/motion-draw/motion-draw';
 import {NotesPage} from './pages/notes/notes';
 import {GalleryPage} from './pages/gallery/gallery';
+import {DDDPage} from './pages/ddd/ddd';
 import {DataService} from './data';
 
 @App({
@@ -27,7 +28,8 @@ class MyApp {
       { title: 'DrawPad', component: DrawPadPage },
       { title: 'MotionDraw', component: MotionDrawPage },
       { title: 'NotesPage', component: NotesPage },
-      { title: 'GalleryPage', component: GalleryPage }
+      { title: 'GalleryPage', component: GalleryPage },
+      { title: 'DDD', component: DDDPage }
     ];
 
     this.rootPage = HomePage;
