@@ -62,4 +62,14 @@ export class DataService {
             });
         });
     }
+    
+    deleteDb() {
+        this.db.transaction((tx) => {
+            tx.executeSql("DROP TABLE notes", [], (tx, success) => {
+                console.log(JSON.stringify(success));
+            }, (tx, error) => {
+                console.log("ERROR -> " + JSON.stringify(error));
+            });
+        });
+    }
 }

@@ -7,7 +7,7 @@
 
 
 <ion-content>  
-  
+  <ion-searchbar [(ngModel)]="searchQuery" (input)="getNotes($event)" (cancel)="updateNotes()" (clear)="updateNotes()"></ion-searchbar>
   <ion-list *ngFor="#note of notes">      
     <ion-card *ngIf="note" (click)="editNote(note)">
       <ion-card-header>{{note.title}}</ion-card-header>
@@ -21,6 +21,6 @@
 <button fab fab-right fab-bottom (click)="addNote()">
   <ion-icon name="add"></ion-icon>
 </button>
-<button fab fab-left fab-bottom danger (click)="deleteAllNotes()">
+<button fab fab-left fab-bottom danger (click)="deleteAllNotes()" on-hold="bye()">
   <ion-icon name="close"></ion-icon>
 </button>

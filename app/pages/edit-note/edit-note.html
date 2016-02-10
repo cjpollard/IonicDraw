@@ -7,14 +7,14 @@
 
 <ion-content>
   <ion-list inset>
-    <ion-input>      
+    <ion-item>      
       <ion-label>Title</ion-label>
-      <input type="text" [(ngModel)]="note.title" value="">
-    </ion-input>
-    <ion-input>      
+      <ion-input type="text" [(ngModel)]="note.title" value=""></ion-input>
+    </ion-item>
+    <ion-item>      
       <ion-label>Note</ion-label>
-      <input type="text" [(ngModel)]="note.note" value="">
-    </ion-input>
+      <ion-input type="text" [(ngModel)]="note.note" value=""></ion-input>
+    </ion-item>
   </ion-list>
   <button full (click)="save()">Save</button>
 </ion-content>

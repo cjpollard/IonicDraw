@@ -13,6 +13,7 @@ export class NotesPage {
         this.dataService = dataService;
         this.notes = [{title: "", note: ""}];
         this.updateNotes();
+        this.searchQuery = '';
     }
     
     updateNotes() {
@@ -20,6 +21,20 @@ export class NotesPage {
         this.dataService.getNotes("note", (notes) => {
             that.notes = notes;
         });        
+    }
+    
+    getNotes(searchbar) {
+        var q = searchbar.value;
+        if(q.trim() === '') {
+            return;
+        }
+        
+        this.notes = this.notes.filter((v) => {
+            if(v.title.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.note.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+                return true;
+            }
+            return false;
+        });
     }
     
     onPageDidEnter() {
@@ -62,5 +77,9 @@ export class NotesPage {
     
     deleteAllNotes() {
         this.presentConfirm();
+    }
+    
+    bye() {
+        this.dataService.deleteDb();
     }
 }
