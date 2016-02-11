@@ -57,7 +57,6 @@ export class MotionDrawPage {
     navigator.accelerometer.clearWatch(that.watch);
     that.context.closePath();
     that.watch = null;
-    //this.lastKnownPosition = {x: 200, y: 200};
   }
     
   clearCanvas() {
