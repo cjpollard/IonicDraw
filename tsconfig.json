@@ -9,7 +9,7 @@
     "rootDir": ".",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "inlineSourceMap": false,
     "inlineSources": false
   },

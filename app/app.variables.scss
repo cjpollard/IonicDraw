@@ -10,6 +10,7 @@
 // in the app.core.scss file and not this file. Sass variables specific
 // to the mode belong in either the app.ios.scss or app.md.scss files.
 $text-color:                 #fff !default;
+$link-color:                 #387ef5 !default;
 $paragraph-color:            $text-color !default;
 $background-color:           #000 !default;
 $subdued-text-color:         #666 !default;
@@ -26,6 +27,15 @@ $toolbar-inactive-color:     #8c8c8c !default;
 $list-text-color:            $text-color !default;
 $list-background-color:      $background-color !default;
 $list-border-color:          #c8c7cc !default;
+
+$card-md-background-color:   $text-color !default;
+$card-md-text-color:         $background-color !default;
+$card-md-title-text-color:   $background-color !default;
+
+$card-ios-background-color:  $text-color !default;
+$card-ios-text-color:        $background-color !default;
+$card-ios-title-text-color:  $background-color !default;
+
 
 
 // App Shared Color Variables
