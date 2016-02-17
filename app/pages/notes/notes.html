@@ -6,7 +6,9 @@
 </ion-navbar>
 
 
-<ion-content>  
+<ion-content>
+  <ion-refresher (refresh)="updateNotes($event, refresher)" pullingText="Grabbing notes...">
+  </ion-refresher>
   <ion-searchbar [(ngModel)]="searchQuery" (input)="getNotes($event)" (cancel)="updateNotes()" (clear)="updateNotes()"></ion-searchbar>
   <ion-list *ngFor="#note of notes">      
     <ion-card *ngIf="note" (click)="editNote(note)">

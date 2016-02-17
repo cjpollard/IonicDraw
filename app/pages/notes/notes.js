@@ -18,8 +18,10 @@ export class NotesPage {
     
     updateNotes() {
         let that = this;
+        let refresher = typeof args !== "undefined" ? args[1] : {complete: function(){}};
         this.dataService.getNotes("note", (notes) => {
             that.notes = notes;
+            refresher.complete();
         });        
     }
     
