@@ -13,10 +13,13 @@ log.txt
 .idea/
 .sass-cache/
 .versions/
+bower_components/
 coverage/
 dist/
+hooks/
 node_modules/
-bower_components/
+platforms/
+plugins/
 tmp/
 temp/
 www/build/
