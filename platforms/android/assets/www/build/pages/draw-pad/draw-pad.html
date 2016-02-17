@@ -12,7 +12,20 @@
       <button id="clearSurface" (click)="clearCanvas()" full><ion-icon name="close-circle"></ion-icon>&nbsp;Clear Canvas</button>
     </ion-col>
     <ion-col class="col-50">
-      <button id="brushColour" class="button-dark disable-hover" color="{{buttonColour}}" (click)="changeColour($event)" full><ion-icon name="brush"></ion-icon>&nbsp;Change colour</button>
+      <ion-list>
+        <ion-item>
+          <ion-label><ion-icon name="brush"></ion-icon></ion-label>
+          <ion-select [(ngModel)]="currentColour">
+            <ion-option value="black">Black</ion-option>
+            <ion-option value="green">Green</ion-option>
+            <ion-option value="red">Red</ion-option>
+            <ion-option value="blue">Blue</ion-option>
+            <ion-option value="orange">Orange</ion-option>
+            <ion-option value="purple">Purple</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <!--<button id="brushColour" class="button-dark disable-hover" color="{{buttonColour}}" (click)="changeColour($event)" full><ion-icon name="brush"></ion-icon>&nbsp;Change colour</button>-->
     </ion-col>
   </ion-row>
   <ion-row class="col-offset-5">

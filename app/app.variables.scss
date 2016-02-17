@@ -9,11 +9,11 @@
 // Ionic's default Sass variable values. App Shared Sass imports belong
 // in the app.core.scss file and not this file. Sass variables specific
 // to the mode belong in either the app.ios.scss or app.md.scss files.
-$text-color:                 #fff !default;
+$text-color:                 #808f95 !default;
 $link-color:                 #387ef5 !default;
 $paragraph-color:            $text-color !default;
-$background-color:           #000 !default;
-$subdued-text-color:         #666 !default;
+$background-color:           #111010 !default;
+$subdued-text-color:         #fff !default;
 
 $font-family-base:           -apple-system, "Helvetica Neue", "Roboto", sans-serif !default;
 $font-size-base:             1.4rem !default; // 1.4rem == 14px
@@ -35,6 +35,10 @@ $card-md-title-text-color:   $background-color !default;
 $card-ios-background-color:  $text-color !default;
 $card-ios-text-color:        $background-color !default;
 $card-ios-title-text-color:  $background-color !default;
+
+.toolbar-title { 
+  color: #fff!important;
+}
 
 
 

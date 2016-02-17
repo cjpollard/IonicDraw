@@ -32,7 +32,6 @@ export class DrawPadPage {
     let canvas = this.canvas;
     let context = this.context;
     let that = this;
-    that.changeColour();
     
     if(that.params) {
         var baseImage = new Image();

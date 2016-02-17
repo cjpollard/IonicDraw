@@ -3,7 +3,7 @@
     "allowNonTsExtensions": true,
     "isolatedModules": true,
     "noLib": true,
-    "target": "ES5",
+    "target": "es5",
     "module": "commonjs",
     "noEmitOnError": false,
     "rootDir": ".",
