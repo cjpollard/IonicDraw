@@ -63094,7 +63094,7 @@
 	                    _this.notes = [];
 	                    if (success && success.rows.length > 0) {
 	                        for (var i = 0; i < success.rows.length; i++) {
-	                            _this.notes.push({ id: success.rows.item(i).id, title: success.rows.item(i).title, note: success.rows.item(i).note });
+	                            _this.notes.push({ id: success.rows.item(i).id, title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note) });
 	                        }
 	                    }
 	                    callback(_this.notes);
@@ -63106,6 +63106,13 @@
 	        });
 	    };
 	    DataService.prototype.saveNote = function (note, successCb, errorCb) {
+	        function fixedEncodeURIComponent(str) {
+	            return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+	                return '%' + c.charCodeAt(0).toString(16);
+	            });
+	        }
+	        note.title = fixedEncodeURIComponent(note.title);
+	        note.note = fixedEncodeURIComponent(note.note);
 	        var query = note.id ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
 	            : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
 	        this.db.transaction(function (tx) {

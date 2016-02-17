@@ -28,16 +28,26 @@ $list-text-color:            $text-color !default;
 $list-background-color:      $background-color !default;
 $list-border-color:          #c8c7cc !default;
 
-$card-md-background-color:   $text-color !default;
-$card-md-text-color:         $background-color !default;
-$card-md-title-text-color:   $background-color !default;
+$card-md-background-color:   $background-color !default;
+$card-md-text-color:         $text-color !default;
+$card-md-title-text-color:   $subdued-text-color !default;
+$card-md-box-shadow:         0 2px 2px 0 rgba(220,220,220,.4), 0 3px 1px -2px rgba(220,220,220,.5), 0 1px 5px 0 rgba(220,220,220,.4) !default;
 
-$card-ios-background-color:  $text-color !default;
-$card-ios-text-color:        $background-color !default;
-$card-ios-title-text-color:  $background-color !default;
+$card-ios-background-color:  $background-color !default;
+$card-ios-text-color:        $text-color !default;
+$card-ios-title-text-color:  $subdued-text-color !default;
+$card-ios-box-shadow:        0 1px 2px rgba(220,220,220,.5) !default;
 
 .toolbar-title { 
   color: #fff!important;
+}
+
+ion-card-content {
+  color: #808f95!important;
+}
+
+ion-card-header {
+  color: #b2b2b2!important;
 }
 
 
