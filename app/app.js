@@ -52,7 +52,7 @@ class MyApp {
       // For example, we might change the StatusBar color. This one below is
       // good for light backgrounds and dark text;
       if (typeof StatusBar !== 'undefined') {
-        StatusBar.styleDefault();
+        StatusBar.styleBlackTranslucent();
       }
     });
   }
