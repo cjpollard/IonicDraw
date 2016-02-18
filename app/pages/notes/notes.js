@@ -16,9 +16,9 @@ export class NotesPage {
         this.searchQuery = '';
     }
     
-    updateNotes() {
+    updateNotes(event? : Object, refresher? : Object) {
         let that = this;
-        let refresher = typeof args !== "undefined" ? args[1] : {complete: function(){}};
+        refresher = typeof refresher !== "undefined" ? refresher : {complete: function(){}};
         this.dataService.getNotes("note", (notes) => {
             that.notes = notes;
             refresher.complete();

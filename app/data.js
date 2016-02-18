@@ -1,5 +1,6 @@
 import {Platform, Storage, SqlStorage} from 'ionic/ionic';
 import {Injectable} from 'angular2/core';
+import {Note} from './note';
 
 @Injectable()
 export class DataService {
@@ -40,6 +41,9 @@ export class DataService {
     }
     
     saveNote(note: Object, successCb, errorCb) {
+        if(note instanceof Note) {
+            console.log("This is an actual note!");
+        }
         function fixedEncodeURIComponent (str) {
             return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
                 return '%' + c.charCodeAt(0).toString(16);
