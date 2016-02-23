@@ -54,6 +54,7 @@ class MyApp {
       if (typeof StatusBar !== 'undefined') {
         StatusBar.styleBlackTranslucent();
       }
+      
       Ionic.io();
       ionicPush = new Ionic.Push().init({
           debug: true,
@@ -68,7 +69,11 @@ class MyApp {
         user.id = Ionic.User.anonymousId();
       }
       
-      user.save();
+      user.save().then((success) => {
+        console.log("User created with id: " + user.id);
+      }, (error) => {
+        console.log("Couldn't create user.");
+      });
 
       ionicPush.register(data => {
           console.log("Device token:", data.token);
