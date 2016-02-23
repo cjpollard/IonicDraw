@@ -3,6 +3,7 @@ var path = require('path');
 
 module.exports = {
   entry: [
+    path.resolve('bower_components/ionic-platform-web-client/dist/ionic.io.bundle'),
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
     'web-animations.min',

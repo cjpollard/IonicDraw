@@ -54,6 +54,25 @@ class MyApp {
       if (typeof StatusBar !== 'undefined') {
         StatusBar.styleBlackTranslucent();
       }
+      Ionic.io();
+      ionicPush = new Ionic.Push().init({
+          debug: true,
+          onNotification: (data) => {
+              console.log('New push notification received');
+              console.log(data);
+          }
+      });
+      
+      var user = Ionic.User.current();
+      if(!user.id) {
+        user.id = Ionic.User.anonymousId();
+      }
+      
+      user.save();
+
+      ionicPush.register(data => {
+          console.log("Device token:", data.token);
+      });
     });
   }
 

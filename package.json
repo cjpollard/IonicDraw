@@ -29,7 +29,8 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-whitelist",
-    "cordova-sqlite-storage"
+    "cordova-sqlite-storage",
+    "phonegap-plugin-push"
   ],
   "cordovaPlatforms": [
     "android"
