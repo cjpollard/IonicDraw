@@ -1,6 +1,7 @@
 import {Page, NavController, NavParams, Alert, Platform} from 'ionic/ionic';
 import {DataService} from '../../data';
 import {GlobalFunctions} from '../../globals';
+import {GalleryPage} from '../gallery/gallery';
 
 
 @Page({
@@ -33,10 +34,13 @@ export class DrawPadPage {
     let context = this.context;
     let that = this;
     
-    if(that.params) {
+    if(that.params && that.params.data.img) {
         var baseImage = new Image();
         baseImage.src = that.params.get('img');
-        context.drawImage(baseImage, 0, 0, 300, 500);
+        context.drawImage(baseImage, 0, 0, 300, 500);        
+    }
+    if(that.params && that.params.data.note) {
+      this.context.putImageData(JSON.parse(that.params.get('note')), 0, 0);
     }
         
     var lastPt = new Object();
@@ -145,28 +149,28 @@ export class DrawPadPage {
   
   getTitle(callback) {
       let prompt = Alert.create({
-          title: 'Save as...',
-      body: "Enter a name for this effort",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'Title'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
+        title: 'Save as...',
+        body: "Enter a name for this effort",
+        inputs: [
+          {
+            name: 'title',
+            placeholder: 'Title'
+          },
+        ],
+        buttons: [
+          {
+            text: 'Cancel',
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Save',
+            handler: data => {
+              callback(data.title);
+            }
           }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            callback(data.title);
-          }
-        }
-      ]
+        ]
       });
       this.nav.present(prompt);
   }
@@ -175,13 +179,17 @@ export class DrawPadPage {
     // todo - add error handling
     this.imgData = this.context.getImageData(0, 0, 300, 500);
     this.getTitle((imgTitle) => {
-        this.dataService.saveNote({title: imgTitle, note: JSON.stringify(this.imgData), type: "canvas"});        
+        this.dataService.saveNote({title: imgTitle, note: JSON.stringify(this.imgData), type: "canvas"}, (success) => {
+          console.log("Saved!");
+        }, (error) => {
+          console.log("Uh oh!");
+        });        
     });
   }
   
   loadCanvas() {
     // todo - link with dataService, add error handling
-    this.context.putImageData(this.imgData, 0, 0);    
+    this.nav.push(GalleryPage);    
   }
   
 }
