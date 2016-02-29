@@ -18,10 +18,6 @@
   "description": "DrawPad: An Ionic project",
   "version": "0.2",
   "cordovaPlugins": [
-    {
-      "locator": "https://github.com/wymsee/cordova-imagePicker.git",
-      "id": "com.synconset.imagepicker"
-    },
     "cordova-plugin-camera",
     "cordova-plugin-console",
     "cordova-plugin-device",

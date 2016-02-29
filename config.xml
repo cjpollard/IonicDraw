@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>V2 Test</name>
+    <name>DrawPad</name>
     <description>An Ionic Framework and Cordova project.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <author>Colin Pollard</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -13,6 +13,8 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <preference name="android-targetSdkVersion" value="23" />
+        <preference name="android-minSdkVersion" value="15" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -29,4 +31,5 @@
     </feature>
     <cdv:plugin name="org.apache.cordova.camera" />
     <cdv:plugin name="org.apache.cordova.device-motion" />
+    
 </widget>
