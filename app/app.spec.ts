@@ -2,11 +2,22 @@ import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} fr
 import { setBaseTestProviders } from 'angular2/testing';
 import { IonicApp, Platform }   from 'ionic-framework/ionic';
 import { MyApp }           from '../app/app';
+import { DataService } from '../app/data';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS);
 
 let myApp = null;
+
+function getComponentStub(name: string): any {
+  'use strict';
+
+  let component: any = {
+    setRoot: function(): boolean { return true; },
+    close: function(root: any): boolean { return true; },
+  };
+  return component;
+}
 
 export function main() {
 
@@ -14,11 +25,36 @@ export function main() {
 
     beforeEach(function() {
       let platform = new Platform();
-      myApp = new MyApp(platform);
+      let app = new IonicApp(null, null, null);
+      let dataService = new DataService(platform);
+
+      myApp = new MyApp(app, platform, dataService);
     });
 
-    it('initialises with two possible pages', () => {
-      expect(myApp).not.toBeNull();
+    it('initialises with five possible pages', () => {
+      expect(myApp['pages'].length).toEqual(5);
+    });
+
+    it('initialises with a root page', () => {
+      expect(myApp['rootPage']).not.toBe(null);
+    });
+
+    it('initialises with an app', () => {
+      expect(myApp['app']).not.toBe(null);
+    });
+
+    it('initialises with a data service', () => {
+      expect(myApp['dataService']).not.toBe(null);
+    });
+
+    it('opens a page', () => {
+      spyOn(myApp['app'], 'getComponent').and.callFake(getComponentStub);
+      myApp.openPage(myApp['pages'][1]);
+      expect(myApp['app'].getComponent).toHaveBeenCalledWith('nav');
+    });
+
+    it('runs initialiseApp', () => {
+      expect(myApp['initializeApp']).not.toBe(null);
     });
   });
 }

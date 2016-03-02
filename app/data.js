@@ -16,17 +16,15 @@ var DataService = (function () {
         this.platform = platform;
         this.platform.ready().then(function () {
             _this.storage = new ionic_1.Storage(ionic_1.SqlStorage);
-            _this.db = _this.storage._strategy._db;
-            _this.db.transaction(function (tx) {
-                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT CHECK(title != "undefined"), note TEXT CHECK(note != "undefined"), type TEXT)', [], function (tx, success) {
-                    console.log("Success: " + JSON.stringify(success));
-                }, function (tx, error) {
-                    console.log("ERROR");
-                });
-            });
+            _this.initDb();
         });
         this.notes = null;
     }
+    DataService.prototype.initDb = function () {
+        this.storage.query('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT CHECK(title != "undefined"), note TEXT CHECK(note != "undefined"), type TEXT)').then(function (tx) {
+            console.log(JSON.stringify(tx.res));
+        });
+    };
     DataService.prototype.getNotes = function (type, callback) {
         var _this = this;
         this.platform.ready().then(function () {

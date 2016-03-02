@@ -14,16 +14,15 @@ export class DataService {
         this.platform = platform;
         this.platform.ready().then(() => {
             this.storage = new Storage(SqlStorage);
-            this.db = this.storage._strategy._db;
-            this.db.transaction((tx) => {
-                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT CHECK(title != "undefined"), note TEXT CHECK(note != "undefined"), type TEXT)', [], (tx, success) => {
-                    console.log("Success: " + JSON.stringify(success));
-                }, (tx, error) => {
-                    console.log("ERROR");
-                });
-            });
+            this.initDb();
         });
         this.notes = null;
+    }
+
+    initDb() {
+        this.storage.query('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT CHECK(title != "undefined"), note TEXT CHECK(note != "undefined"), type TEXT)').then((tx) => {
+            console.log(JSON.stringify(tx.res));
+        });
     }
 
     getNotes(type: string, callback: (notes: any) => void) {
