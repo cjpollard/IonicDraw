@@ -28,19 +28,15 @@ var DataService = (function () {
     DataService.prototype.getNotes = function (type, callback) {
         var _this = this;
         this.platform.ready().then(function () {
-            _this.db.transaction(function (tx) {
-                tx.executeSql("SELECT * FROM notes WHERE type='" + type + "'", [], function (tx, success) {
-                    _this.notes = [];
-                    if (success && success.rows.length > 0) {
-                        for (var i = 0; i < success.rows.length; i++) {
-                            _this.notes.push({ id: success.rows.item(i).id, title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note) });
-                        }
+            _this.storage.query("SELECT * FROM notes WHERE type='" + type + "'").then(function (tx) {
+                _this.notes = [];
+                var success = tx.res;
+                if (success && success.rows.length > 0) {
+                    for (var i = 0; i < success.rows.length; i++) {
+                        _this.notes.push({ id: success.rows.item(i).id, title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note) });
                     }
-                    callback(_this.notes);
-                }, function (tx, error) {
-                    console.log("ERROR -> " + JSON.stringify(error));
-                    callback({ title: "Error", note: "Could not retrieve notes" });
-                });
+                }
+                callback(_this.notes);
             });
         });
     };
@@ -57,32 +53,23 @@ var DataService = (function () {
         note.note = fixedEncodeURIComponent(note.note);
         var query = note.id !== 0 ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
             : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
-        this.db.transaction(function (tx) {
-            tx.executeSql(query, [], function (tx, success) {
-                console.log(JSON.stringify(success));
+        this.storage.query(query).then(function (tx) {
+            if (tx.res) {
                 successCb();
-            }, function (tx, error) {
-                console.log("ERROR -> " + JSON.stringify(error));
-                errorCb(error);
-            });
+            }
+            else {
+                errorCb(tx.err);
+            }
         });
     };
     DataService.prototype.deleteAll = function (type) {
-        this.db.transaction(function (tx) {
-            tx.executeSql("DELETE FROM notes", [], function (tx, success) {
-                console.log(JSON.stringify(success));
-            }, function (tx, error) {
-                console.log("ERROR -> " + JSON.stringify(error));
-            });
+        this.storage.query("DELETE FROM notes").then(function (tx) {
+            console.log('deleted stuff');
         });
     };
     DataService.prototype.deleteDb = function () {
-        this.db.transaction(function (tx) {
-            tx.executeSql("DROP TABLE notes", [], function (tx, success) {
-                console.log(JSON.stringify(success));
-            }, function (tx, error) {
-                console.log("ERROR -> " + JSON.stringify(error));
-            });
+        this.storage.query("DROP TABLE notes").then(function (tx) {
+            console.log('deleted all the things');
         });
     };
     DataService = __decorate([

@@ -27,19 +27,15 @@ export class DataService {
 
     getNotes(type: string, callback: (notes: any) => void) {
         this.platform.ready().then(() => {
-            this.db.transaction((tx) => {
-                tx.executeSql("SELECT * FROM notes WHERE type='" + type + "'", [], (tx, success) => {
-                    this.notes = [];
-                    if(success && success.rows.length > 0) {
-                        for(var i = 0; i < success.rows.length; i++) {
-                            this.notes.push({id: success.rows.item(i).id,title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note)});
-                        }
+            this.storage.query("SELECT * FROM notes WHERE type='" + type + "'").then((tx) => {
+                this.notes = [];
+                let success = tx.res;
+                if(success && success.rows.length > 0) {
+                    for(var i = 0; i < success.rows.length; i++) {
+                        this.notes.push({id: success.rows.item(i).id,title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note)});
                     }
-                    callback(this.notes);
-                }, (tx, error) => {
-                    console.log("ERROR -> " + JSON.stringify(error));
-                    callback({title: "Error", note: "Could not retrieve notes"});
-                });
+                }
+                callback(this.notes);
             });
         });
     }
@@ -57,34 +53,24 @@ export class DataService {
         note.note = fixedEncodeURIComponent(note.note);
         var query = note.id !== 0 ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
                             : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
-        this.db.transaction((tx) => {
-            tx.executeSql(query, [], (tx, success) => {
-                console.log(JSON.stringify(success));
+        this.storage.query(query).then((tx) => {
+            if(tx.res) {
                 successCb();
-            }, (tx, error) => {
-                console.log("ERROR -> " + JSON.stringify(error));
-                errorCb(error);
-            });
+            } else {
+                errorCb(tx.err);
+            }
         });
     }
 
     deleteAll(type: string) {
-        this.db.transaction((tx) => {
-            tx.executeSql("DELETE FROM notes", [], (tx, success) => {
-                console.log(JSON.stringify(success));
-            }, (tx, error) => {
-                console.log("ERROR -> " + JSON.stringify(error));
-            });
+        this.storage.query("DELETE FROM notes").then((tx) => {
+           console.log('deleted stuff');
         });
     }
 
     deleteDb() {
-        this.db.transaction((tx) => {
-            tx.executeSql("DROP TABLE notes", [], (tx, success) => {
-                console.log(JSON.stringify(success));
-            }, (tx, error) => {
-                console.log("ERROR -> " + JSON.stringify(error));
-            });
+        this.storage.query("DROP TABLE notes").then((tx) => {
+           console.log('deleted all the things');
         });
     }
 }
