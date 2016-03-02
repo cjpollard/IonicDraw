@@ -20,9 +20,10 @@ export class MyApp {
   private pages: Array<any>;
   private rootPage: any;
 
-  constructor(platform: Platform, dataService?: DataService) {
+  constructor(app: IonicApp, platform: Platform, dataService: DataService) {
 
     // set up our app
+    this.app = app;
     this.platform = platform;
     this.initializeApp();
     this.dataService = dataService;

@@ -16,7 +16,7 @@ var NotesPage = (function () {
         this.dataService = dataService;
         this.notes = [{ id: 0, title: "", note: "", type: "note" }];
         this.updateNotes();
-        this.searchQuery = '';
+        this.searchQuery = "";
     }
     NotesPage.prototype.updateNotes = function (event, refresher) {
         var that = this;
@@ -28,7 +28,7 @@ var NotesPage = (function () {
     };
     NotesPage.prototype.getNotes = function (searchbar) {
         var q = searchbar.value;
-        if (q.trim() === '') {
+        if (q.trim() === "") {
             return;
         }
         this.notes = this.notes.filter(function (v) {
@@ -64,7 +64,11 @@ var NotesPage = (function () {
         this.nav.present(alert);
     };
     NotesPage.prototype.addNote = function () {
-        this.nav.push(edit_note_1.EditNotePage);
+        this.nav.push(edit_note_1.EditNotePage, {
+            id: 0,
+            title: "",
+            note: ""
+        });
     };
     NotesPage.prototype.editNote = function (note) {
         this.nav.push(edit_note_1.EditNotePage, {

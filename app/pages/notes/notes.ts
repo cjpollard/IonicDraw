@@ -72,7 +72,11 @@ export class NotesPage {
     }
 
     addNote() {
-        this.nav.push(EditNotePage);
+        this.nav.push(EditNotePage, {
+            id: 0,
+            title: "",
+            note: ""
+        });
     }
 
     editNote(note: Note) {

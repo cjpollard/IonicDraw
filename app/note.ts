@@ -1,6 +1,3 @@
-import {Component} from 'angular2/core';
-
-@Component()
 export class Note {
     constructor(
         public id: number,
