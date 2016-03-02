@@ -13,7 +13,6 @@ log.txt
 .idea/
 .sass-cache/
 .versions/
-.vscode/
 bower_components/
 coverage/
 dist/
@@ -25,6 +24,10 @@ tmp/
 temp/
 www/build/
 $RECYCLE.BIN/
+
+app/**/*.js
+gulpfile.js
+**/*.map
 
 .DS_Store
 Thumbs.db

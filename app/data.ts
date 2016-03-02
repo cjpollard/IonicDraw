@@ -1,0 +1,91 @@
+import {Platform, Storage, SqlStorage} from 'ionic-framework/ionic';
+import {Injectable} from 'angular2/core';
+import {Note} from './note';
+
+@Injectable()
+export class DataService {
+    // todo - extend for use with canvas pages
+    private platform: Platform;
+    private storage: any;
+    private db: any;
+    private notes: any;
+
+    constructor(platform: Platform){
+        this.platform = platform;
+        this.platform.ready().then(() => {
+            this.storage = new Storage(SqlStorage);
+            this.db = this.storage._strategy._db;
+            this.db.transaction((tx) => {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT CHECK(title != "undefined"), note TEXT CHECK(note != "undefined"), type TEXT)', [], (tx, success) => {
+                    console.log("Success: " + JSON.stringify(success));
+                }, (tx, error) => {
+                    console.log("ERROR");
+                });
+            });
+        });
+        this.notes = null;
+    }
+
+    getNotes(type: string, callback: (notes: any) => void) {
+        this.platform.ready().then(() => {
+            this.db.transaction((tx) => {
+                tx.executeSql("SELECT * FROM notes WHERE type='" + type + "'", [], (tx, success) => {
+                    this.notes = [];
+                    if(success && success.rows.length > 0) {
+                        for(var i = 0; i < success.rows.length; i++) {
+                            this.notes.push({id: success.rows.item(i).id,title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note)});
+                        }
+                    }
+                    callback(this.notes);
+                }, (tx, error) => {
+                    console.log("ERROR -> " + JSON.stringify(error));
+                    callback({title: "Error", note: "Could not retrieve notes"});
+                });
+            });
+        });
+    }
+
+    saveNote(note: Note, successCb, errorCb) {
+        if(note instanceof Note) {
+            console.log("This is an actual note!");
+        }
+        function fixedEncodeURIComponent (str) {
+            return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+                return '%' + c.charCodeAt(0).toString(16);
+            });
+        }
+        note.title = fixedEncodeURIComponent(note.title);
+        note.note = fixedEncodeURIComponent(note.note);
+        var query = note.id !== 0 ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
+                            : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
+        this.db.transaction((tx) => {
+            tx.executeSql(query, [], (tx, success) => {
+                console.log(JSON.stringify(success));
+                successCb();
+            }, (tx, error) => {
+                console.log("ERROR -> " + JSON.stringify(error));
+                errorCb(error);
+            });
+        });
+    }
+
+    deleteAll(type: string) {
+        this.db.transaction((tx) => {
+            tx.executeSql("DELETE FROM notes", [], (tx, success) => {
+                console.log(JSON.stringify(success));
+            }, (tx, error) => {
+                console.log("ERROR -> " + JSON.stringify(error));
+            });
+        });
+    }
+
+    deleteDb() {
+        this.db.transaction((tx) => {
+            tx.executeSql("DROP TABLE notes", [], (tx, success) => {
+                console.log(JSON.stringify(success));
+            }, (tx, error) => {
+                console.log("ERROR -> " + JSON.stringify(error));
+            });
+        });
+    }
+}

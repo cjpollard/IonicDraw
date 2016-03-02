@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "allowNonTsExtensions": true,
     "isolatedModules": true,
     "noLib": true,
     "target": "es5",
@@ -14,7 +13,8 @@
     "inlineSources": false
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "www/build"
   ],
   "compileOnSave": false
 }
