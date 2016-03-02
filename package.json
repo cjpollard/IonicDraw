@@ -26,5 +26,7 @@
     "cordova-plugin-whitelist",
     "cordova-sqlite-storage"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "android"
+  ]
 }
