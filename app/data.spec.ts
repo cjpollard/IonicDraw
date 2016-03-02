@@ -21,8 +21,5 @@ export function main() {
     it('has some storage', () => {
       expect(service['storage']).not.toBe(null);
     });
-    it('has a database', () => {
-      expect(service['db']).not.toBe(null);
-    });
   });
 }

@@ -7,7 +7,6 @@ export class DataService {
     // todo - extend for use with canvas pages
     private platform: Platform;
     private storage: any;
-    private db: any;
     private notes: any;
 
     constructor(platform: Platform){
