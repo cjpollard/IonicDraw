@@ -16,7 +16,6 @@ log.txt
 bower_components/
 coverage/
 dist/
-hooks/
 node_modules/
 platforms/
 plugins/
