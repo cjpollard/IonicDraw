@@ -17,10 +17,10 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.ts$/,
         loader: 'awesome-typescript',
         query: {
-          doTypeCheck: true,
+          doTypeCheck: false,
           useWebpackText: true
         },
         include: path.resolve('app'),
