@@ -1,41 +1,39 @@
-import {Platform, Storage, SqlStorage} from 'ionic-framework/ionic';
+import {SqlStorage} from 'ionic-framework/ionic';
 import {Injectable} from 'angular2/core';
 import {Note} from './note';
 
 @Injectable()
 export class DataService {
-    // todo - extend for use with canvas pages
-    private platform: Platform;
-    private storage: any;
+
+    private storage: SqlStorage;
     private notes: any;
 
-    constructor(platform: Platform){
-        this.platform = platform;
-        this.platform.ready().then(() => {
-            this.storage = new Storage(SqlStorage);
-            this.initDb();
-        });
+    constructor(){
+        this.storage = DataService.initStorage();
         this.notes = null;
+        this.initDb();
+    }
+
+    private static initStorage() {
+        return new SqlStorage();
     }
 
     initDb() {
         this.storage.query('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT CHECK(title != "undefined"), note TEXT CHECK(note != "undefined"), type TEXT)').then((tx) => {
             console.log(JSON.stringify(tx.res));
+            this.notes = [];
         });
     }
 
     getNotes(type: string, callback: (notes: any) => void) {
-        this.platform.ready().then(() => {
-            this.storage.query("SELECT * FROM notes WHERE type='" + type + "'").then((tx) => {
-                this.notes = [];
-                let success = tx.res;
-                if(success && success.rows.length > 0) {
-                    for(var i = 0; i < success.rows.length; i++) {
-                        this.notes.push({id: success.rows.item(i).id,title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note)});
-                    }
+        this.storage.query("SELECT * FROM notes WHERE type='" + type + "'").then((tx) => {
+            let success = tx.res;
+            if(success && success.rows.length > 0) {
+                for(var i = 0; i < success.rows.length; i++) {
+                    this.notes.push({id: success.rows.item(i).id,title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note)});
                 }
-                callback(this.notes);
-            });
+            }
+            callback(this.notes);
         });
     }
 
@@ -62,7 +60,7 @@ export class DataService {
     }
 
     deleteAll(type: string) {
-        this.storage.query("DELETE FROM notes").then((tx) => {
+        this.storage.query("DELETE FROM notes WHERE type='" + type +"'").then((tx) => {
            console.log('deleted stuff');
         });
     }

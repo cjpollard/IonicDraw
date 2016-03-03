@@ -14,7 +14,8 @@
   },
   "exclude": [
     "node_modules",
-    "www/build"
+    "www/build",
+    "typings"
   ],
   "compileOnSave": true
 }
