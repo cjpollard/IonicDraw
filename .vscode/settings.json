@@ -5,7 +5,7 @@
         "**/.git": true,
         "**/.DS_Store": true,
         "**/*.js": { "when": "$(basename).ts"},
-        "**/*.js.map": { "when": "$(basename).js"}
+        "**/*.js.map": true
     },
     "files.trimTrailingWhitespace": true
 }

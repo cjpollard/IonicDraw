@@ -26,7 +26,7 @@ export function main() {
     beforeEach(function() {
       let platform = new Platform();
       let app = new IonicApp(null, null, null);
-      let dataService = new DataService(platform);
+      let dataService = new DataService();
 
       myApp = new MyApp(app, platform, dataService);
     });
