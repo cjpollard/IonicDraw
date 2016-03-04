@@ -13,6 +13,7 @@ export class GalleryPage {
     private nav: NavController;
     private dataService: DataService;
     private images: any;
+    private refresher: any;
 
     constructor(nav: NavController, dataService: DataService) {
         this.nav = nav;
