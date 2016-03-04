@@ -15,10 +15,21 @@ export function main() {
       fn = new GlobalFunctions();
       let platform = new Platform();
       page = new MotionDrawPage(null, fn, platform);
+      page.context = {clearRect: () => {}, getImageData: () => {}, putImageData: () => {}};
     });
 
     it('initialises with correct parameters', () => {
       expect(page).not.toBe(null);
+    });
+
+    it('clear, load and save functions all call stop', () => {
+      spyOn(page, 'stop');
+      page.clearCanvas();
+      expect(page['stop']).toHaveBeenCalledTimes(1);
+      page.saveCanvas();
+      expect(page['stop']).toHaveBeenCalledTimes(2);
+      page.loadCanvas();
+      expect(page['stop']).toHaveBeenCalledTimes(3);
     });
 
   });

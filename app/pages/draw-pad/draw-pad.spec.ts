@@ -9,6 +9,21 @@ let page = null;
 let service = null;
 let params = {id: 0, title: "title", note: "note"};
 let fn = null;
+let mockContextObject = {
+  fillStyle: "",
+  drawImage: () => {}
+}
+let mockCanvasObject = {
+  toDataURL: () => {
+    return "this://is.a.fake.url";
+  },
+  addEventListener: (eventString, method, bool) => {
+    return true;
+  },
+  getContext: (context) => {
+    return mockContextObject;
+  }
+};
 
 export function main() {
 
@@ -21,14 +36,12 @@ export function main() {
       let platform = new Platform();
       page = new DrawPadPage(null, fn, navParams, service, platform);
       spyOn(service, 'saveNote');
-      page['canvas'] = {toDataURL: () => {
-        return "this://is.a.fake.url";
-        }
-      };
+      page['canvas'] = mockCanvasObject;
     });
 
     it('initialises with correct parameters', () => {
       expect(page).not.toBe(null);
+      expect(page['imgData']).toEqual({});
     });
 
     it('save makes a call to DataService', () => {
@@ -45,6 +58,13 @@ export function main() {
       page.changeColour();
       expect(page['currentColour']).toEqual('green');
       expect(page['buttonColour']).toEqual('secondary');
+    });
+
+    it('sets up event listeners', () => {
+      spyOn(document, 'getElementById').and.returnValue(page['canvas']);
+      spyOn(page['canvas'], 'addEventListener');
+      page.init();
+      expect(page['canvas'].addEventListener).toHaveBeenCalledTimes(6);
     });
 
   });
