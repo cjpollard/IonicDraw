@@ -5,8 +5,8 @@ import {Note} from '../../note';
 
 
 @Page({
-  templateUrl: 'build/pages/notes/notes.html',
-  providers: [DataService]
+    templateUrl: 'build/pages/notes/notes.html',
+    providers: [DataService]
 })
 export class NotesPage {
     private nav: NavController;
@@ -17,14 +17,14 @@ export class NotesPage {
     constructor(nav: NavController, dataService: DataService) {
         this.nav = nav;
         this.dataService = dataService;
-        this.notes = [{id: 0, title: "", note: "", type: "note"}];
+        this.notes = [{ id: 0, title: "", note: "", type: "note" }];
         this.updateNotes();
         this.searchQuery = "";
     }
 
     updateNotes(event?: any, refresher?: any) {
         let that = this;
-        refresher = typeof refresher !== "undefined" ? refresher : {complete: function(){}};
+        refresher = typeof refresher !== "undefined" ? refresher : { complete: function() { } };
         this.dataService.getNotes("note", (notes: Array<Note>) => {
             that.notes = notes;
             refresher.complete();
@@ -38,7 +38,7 @@ export class NotesPage {
         }
 
         this.notes = this.notes.filter((v) => {
-            if(v.title.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.note.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+            if (v.title.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.note.toLowerCase().indexOf(q.toLowerCase()) > -1) {
                 return true;
             }
             return false;
@@ -52,21 +52,21 @@ export class NotesPage {
     presentConfirm() {
         var that = this;
         var alert = Alert.create({
-           title: 'Confirm delete',
-           message: 'Are you sure you want to delete all notes?',
-           buttons: [{
-               text: 'Nope',
-               handler: () => {
-                   that.nav.remove(1);
-               }
-           },{
-               text: 'Yep',
-               handler: () => {
-                   this.dataService.deleteAll("note");
-                   this.updateNotes();
-                   that.nav.remove(1);
-               }
-           }]
+            title: 'Confirm delete',
+            message: 'Are you sure you want to delete all notes?',
+            buttons: [{
+                text: 'Nope',
+                handler: () => {
+                    that.nav.remove(1);
+                }
+            }, {
+                    text: 'Yep',
+                    handler: () => {
+                        this.dataService.deleteAll("note");
+                        this.updateNotes();
+                        that.nav.remove(1);
+                    }
+                }]
         });
         this.nav.present(alert);
     }

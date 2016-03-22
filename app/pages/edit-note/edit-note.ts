@@ -5,8 +5,8 @@ import {Note} from '../../note';
 
 
 @Page({
-  templateUrl: 'build/pages/edit-note/edit-note.html',
-  providers: [DataService]
+    templateUrl: 'build/pages/edit-note/edit-note.html',
+    providers: [DataService]
 })
 export class EditNotePage {
     private nav: NavController;

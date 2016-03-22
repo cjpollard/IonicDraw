@@ -5,8 +5,8 @@ import {Note} from '../../note';
 
 
 @Page({
-  templateUrl: 'build/pages/gallery/gallery.html',
-  providers: [DataService]
+    templateUrl: 'build/pages/gallery/gallery.html',
+    providers: [DataService]
 })
 export class GalleryPage {
 
@@ -18,13 +18,13 @@ export class GalleryPage {
     constructor(nav: NavController, dataService: DataService) {
         this.nav = nav;
         this.dataService = dataService;
-        this.images = [{title: ""}];
+        this.images = [{ title: "" }];
         this.updateNotes();
     }
 
     updateNotes(event?: any, refresher?: any) {
         let that = this;
-        refresher = typeof refresher !== "undefined" ? refresher : {complete: function(){}};
+        refresher = typeof refresher !== "undefined" ? refresher : { complete: function() { } };
         this.dataService.getNotes("canvas", (images) => {
             that.images = images;
             refresher.complete();
@@ -38,21 +38,21 @@ export class GalleryPage {
     presentConfirm() {
         var that = this;
         var alert = Alert.create({
-           title: 'Confirm delete',
-           message: 'Are you sure you want to delete all notes?',
-           buttons: [{
-               text: 'Nope',
-               handler: () => {
-                   that.nav.remove(1);
-               }
-           },{
-               text: 'Yep',
-               handler: () => {
-                   this.dataService.deleteAll('canvas');
-                   this.updateNotes();
-                   that.nav.remove(1);
-               }
-           }]
+            title: 'Confirm delete',
+            message: 'Are you sure you want to delete all notes?',
+            buttons: [{
+                text: 'Nope',
+                handler: () => {
+                    that.nav.remove(1);
+                }
+            }, {
+                    text: 'Yep',
+                    handler: () => {
+                        this.dataService.deleteAll('canvas');
+                        this.updateNotes();
+                        that.nav.remove(1);
+                    }
+                }]
         });
         this.nav.present(alert);
     }

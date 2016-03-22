@@ -8,7 +8,7 @@ export class DataService {
     private storage: SqlStorage;
     private notes: any;
 
-    constructor(){
+    constructor() {
         this.storage = DataService.initStorage();
         this.notes = null;
         this.initDb();
@@ -28,9 +28,9 @@ export class DataService {
     getNotes(type: string, callback: (notes: any) => void) {
         this.storage.query("SELECT * FROM notes WHERE type='" + type + "'").then((tx) => {
             let success = tx.res;
-            if(success && success.rows.length > 0) {
-                for(var i = 0; i < success.rows.length; i++) {
-                    this.notes.push({id: success.rows.item(i).id,title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note)});
+            if (success && success.rows.length > 0) {
+                for (var i = 0; i < success.rows.length; i++) {
+                    this.notes.push({ id: success.rows.item(i).id, title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note) });
                 }
             }
             callback(this.notes);
@@ -38,10 +38,10 @@ export class DataService {
     }
 
     saveNote(note: Note, successCb, errorCb) {
-        if(note instanceof Note) {
+        if (note instanceof Note) {
             console.log("This is an actual note!");
         }
-        function fixedEncodeURIComponent (str) {
+        function fixedEncodeURIComponent(str) {
             return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
                 return '%' + c.charCodeAt(0).toString(16);
             });
@@ -49,9 +49,9 @@ export class DataService {
         note.title = fixedEncodeURIComponent(note.title);
         note.note = fixedEncodeURIComponent(note.note);
         var query = note.id !== 0 ? "UPDATE notes SET title='" + note.title + "', note='" + note.note + "', type='" + note.type + "' WHERE id=" + note.id
-                            : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
+            : "INSERT INTO notes (title, note, type) VALUES ('" + note.title + "', '" + note.note + "', '" + note.type + "')";
         this.storage.query(query).then((tx) => {
-            if(tx.res) {
+            if (tx.res) {
                 successCb();
             } else {
                 errorCb(tx.err);
@@ -60,14 +60,14 @@ export class DataService {
     }
 
     deleteAll(type: string) {
-        this.storage.query("DELETE FROM notes WHERE type='" + type +"'").then((tx) => {
-           console.log('deleted stuff');
+        this.storage.query("DELETE FROM notes WHERE type='" + type + "'").then((tx) => {
+            console.log('deleted stuff');
         });
     }
 
     deleteDb() {
         this.storage.query("DROP TABLE notes").then((tx) => {
-           console.log('deleted all the things');
+            console.log('deleted all the things');
         });
     }
 }

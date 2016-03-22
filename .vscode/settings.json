@@ -7,5 +7,6 @@
         "**/*.js": { "when": "$(basename).ts"},
         "**/*.js.map": true
     },
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    "git.path": "C:\\Program Files (x86)\\Git\\bin"
 }
