@@ -9,13 +9,13 @@
 <ion-content>
   <ion-refresher (refresh)="updateNotes($event, refresher)" pullingText="Grabbing images...">
   </ion-refresher>
-  <ion-list *ngFor="#image of images">      
+  <ion-list *ngFor="#image of images">
     <ion-card *ngIf="image" (click)="editNote(image)">
       <ion-card-header>{{image.title}}</ion-card-header>
-    </ion-card>  
+    </ion-card>
   </ion-list>
   <div class="buffer"></div>
-  
+
 </ion-content>
 
 <button fab fab-right fab-bottom (click)="addNote()">

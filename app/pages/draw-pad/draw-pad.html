@@ -6,15 +6,18 @@
 </ion-navbar>
 
 
-<ion-content>  
+<ion-content>
   <ion-row class="col-offset-5">
     <ion-col class="col-50">
-      <button id="clearSurface" (click)="clearCanvas()" full><ion-icon name="close-circle"></ion-icon>&nbsp;Clear Canvas</button>
+      <button id="clearSurface" (click)="clearCanvas()" full>
+        <ion-icon name="close-circle"></ion-icon>&nbsp;Clear Canvas</button>
     </ion-col>
     <ion-col class="col-50">
       <ion-list>
         <ion-item>
-          <ion-label><ion-icon name="brush"></ion-icon></ion-label>
+          <ion-label>
+            <ion-icon name="brush"></ion-icon>
+          </ion-label>
           <ion-select [(ngModel)]="currentColour">
             <ion-option value="black">Black</ion-option>
             <ion-option value="green">Green</ion-option>
@@ -29,19 +32,21 @@
     </ion-col>
   </ion-row>
   <ion-row class="col-offset-5">
-    <ion-col class="col-50">   
-      <button id="saveCanvas" balanced (click)="saveCanvas()" full><ion-icon name="download"></ion-icon>&nbsp;Save</button>
+    <ion-col class="col-50">
+      <button id="saveCanvas" balanced (click)="saveCanvas()" full>
+        <ion-icon name="download"></ion-icon>&nbsp;Save</button>
     </ion-col>
     <ion-col class="col-50">
-      <button id="loadCanvas" secondary (click)="loadCanvas()" full><ion-icon name="open"></ion-icon>&nbsp;Load</button>
-    </ion-col> 
-  </ion-row>
-  
-  <ion-row bottom stretch class="responsive-lg">
-    <ion-col>
-        <canvas id="drawSurface" height="300px"></canvas>
+      <button id="loadCanvas" secondary (click)="loadCanvas()" full>
+        <ion-icon name="open"></ion-icon>&nbsp;Load</button>
     </ion-col>
   </ion-row>
-  
+
+  <ion-row bottom stretch class="responsive-lg">
+    <ion-col>
+      <canvas id="drawSurface" height="300px"></canvas>
+    </ion-col>
+  </ion-row>
+
 
 </ion-content>

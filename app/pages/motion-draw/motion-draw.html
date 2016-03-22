@@ -6,38 +6,42 @@
 </ion-navbar>
 
 
-<ion-content>  
+<ion-content>
   <ion-row class="col-offset-5">
-    <ion-col class="col-50">   
-      <button id="startDraw" secondary (click)="start()" full><ion-icon name="play"></ion-icon>&nbsp;Start</button>
+    <ion-col class="col-50">
+      <button id="startDraw" secondary (click)="start()" full>
+        <ion-icon name="play"></ion-icon>&nbsp;Start</button>
     </ion-col>
     <ion-col class="col-50">
-      <button id="stopDraw" danger (click)="stop()" full><ion-icon name="pause"></ion-icon>&nbsp;Stop</button>
-    </ion-col> 
+      <button id="stopDraw" danger (click)="stop()" full>
+        <ion-icon name="pause"></ion-icon>&nbsp;Stop</button>
+    </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col class="col-30">   
-      <button id="clear" balanced (click)="clearCanvas()" full><ion-icon name="close-circle"></ion-icon>&nbsp;Clear</button>
+    <ion-col class="col-30">
+      <button id="clear" balanced (click)="clearCanvas()" full>
+        <ion-icon name="close-circle"></ion-icon>&nbsp;Clear</button>
     </ion-col>
     <ion-col class="col-30">
-      <button id="save" balanced (click)="saveCanvas()" full><ion-icon name="download"></ion-icon>&nbsp;Save</button>
+      <button id="save" balanced (click)="saveCanvas()" full>
+        <ion-icon name="download"></ion-icon>&nbsp;Save</button>
     </ion-col>
     <ion-col class="col-30">
-      <button id="load" secondary (click)="loadCanvas()" full><ion-icon name="open"></ion-icon>&nbsp;Load</button>
+      <button id="load" secondary (click)="loadCanvas()" full>
+        <ion-icon name="open"></ion-icon>&nbsp;Load</button>
     </ion-col>
   </ion-row>
-  
+
   <ion-row bottom stretch class="responsive-lg">
     <ion-col>
-        <canvas id="drawSurface" height="300px"></canvas>
+      <canvas id="drawSurface" height="300px"></canvas>
     </ion-col>
   </ion-row>
-  
+
   <ion-row>
-    X: {{deviceAxis.x}}<br>
-    Y: {{deviceAxis.y}}<br>
-    Z: {{deviceAxis.z}} 
+    X: {{deviceAxis.x}}
+    <br> Y: {{deviceAxis.y}}
+    <br> Z: {{deviceAxis.z}}
   </ion-row>
-  
 
 </ion-content>

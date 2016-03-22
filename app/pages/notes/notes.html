@@ -10,14 +10,14 @@
   <ion-refresher (refresh)="updateNotes($event, refresher)" pullingText="Grabbing notes...">
   </ion-refresher>
   <ion-searchbar [(ngModel)]="searchQuery" (input)="getNotes($event)" (cancel)="updateNotes()" (clear)="updateNotes()"></ion-searchbar>
-  <ion-list *ngFor="#note of notes">      
+  <ion-list *ngFor="#note of notes">
     <ion-card *ngIf="note" (click)="editNote(note)">
       <ion-card-header>{{note.title}}</ion-card-header>
       <ion-card-content>{{note.note}}</ion-card-content>
-    </ion-card>  
+    </ion-card>
   </ion-list>
   <div class="buffer"></div>
-  
+
 </ion-content>
 
 <button fab fab-right fab-bottom (click)="addNote()">
