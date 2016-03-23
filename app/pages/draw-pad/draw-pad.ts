@@ -34,7 +34,7 @@ export class DrawPadPage {
         });
     }
 
-    getCurrentColour() {
+    getCurrentColour() : string {
         return this.currentColour;
     }
 
