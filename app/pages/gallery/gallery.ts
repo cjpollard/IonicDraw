@@ -39,7 +39,7 @@ export class GalleryPage {
         var that = this;
         var alert = Alert.create({
             title: 'Confirm delete',
-            message: 'Are you sure you want to delete all notes?',
+            message: 'Are you sure you want to delete all drawings?',
             buttons: [{
                 text: 'Nope',
                 handler: () => {
