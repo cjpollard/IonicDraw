@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy} from 'angular2/core';
 import {Page, NavController, Alert} from 'ionic-framework/ionic';
+import {ChangeDetectionStrategy} from 'angular2/core';
 import {DataService} from '../../data';
 import {EditNotePage} from '../edit-note/edit-note';
 import {Note} from '../../note';
-import {OrderBy} from '../../orderBy.pipe';
+import {UniquePipe} from '../../unique.pipe';
 
 
 @Page({
     templateUrl: 'build/pages/notes/notes.html',
     providers: [DataService],
-    pipes: [OrderBy],
+    pipes: [UniquePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotesPage {
@@ -17,7 +17,6 @@ export class NotesPage {
     private dataService: DataService;
     private notes: Array<Note>;
     private searchQuery: string;
-    private filter: string;
 
     constructor(nav: NavController, dataService: DataService) {
         this.nav = nav;
@@ -25,13 +24,13 @@ export class NotesPage {
         this.notes = [{ id: 0, title: "", note: "", type: "note" }];
         this.updateNotes();
         this.searchQuery = "";
-        this.filter = "+title";
     }
 
     updateNotes(event?: any, refresher?: any) {
         let that = this;
         refresher = typeof refresher !== "undefined" ? refresher : { complete: function() { } };
         this.dataService.getNotes("note", (notes: Array<Note>) => {
+            that.notes = [];
             that.notes = notes;
             refresher.complete();
         });

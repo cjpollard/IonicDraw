@@ -6,7 +6,7 @@ module.exports = {
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
     'web-animations.min',
-    path.normalize('zone.js/dist/zone-microtask'),
+    path.normalize('zone.js/dist/zone'),
     path.resolve('app/app')
   ],
   output: {
@@ -36,7 +36,7 @@ module.exports = {
       /es6-shim/,
       /reflect-metadata/,
       /web-animations/,
-      /zone\.js(\/|\\)dist(\/|\\)zone-microtask/
+      /zone\.js(\/|\\)dist(\/|\\)zone/
     ]
   },
   resolve: {
