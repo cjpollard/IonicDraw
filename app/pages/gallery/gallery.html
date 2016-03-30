@@ -9,7 +9,7 @@
 <ion-content>
   <ion-refresher (refresh)="updateNotes($event, refresher)" pullingText="Grabbing images...">
   </ion-refresher>
-  <ion-list *ngFor="#image of images">
+  <ion-list *ngFor="#image of images | unique">
     <ion-card *ngIf="image" (click)="editNote(image)">
       <ion-card-header>{{image.title}}</ion-card-header>
     </ion-card>

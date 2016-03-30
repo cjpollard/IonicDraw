@@ -1,12 +1,16 @@
 import {Page, NavController, Alert} from 'ionic-framework/ionic';
+import {ChangeDetectionStrategy} from 'angular2/core';
 import {DataService} from '../../data';
 import {DrawPadPage} from '../draw-pad/draw-pad';
 import {Note} from '../../note';
+import {UniquePipe} from '../../unique.pipe';
 
 
 @Page({
     templateUrl: 'build/pages/gallery/gallery.html',
-    providers: [DataService]
+    providers: [DataService],
+    pipes: [UniquePipe],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleryPage {
 
