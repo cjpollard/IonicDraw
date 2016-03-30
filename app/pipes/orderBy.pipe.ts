@@ -1,3 +1,4 @@
+// Thanks to Corey Shaw http://www.fueltravel.com/blog/migrating-from-angular-1-to-2-part-1-pipes/
 import {Pipe, PipeTransform} from 'angular2/core';
 
 @Pipe({

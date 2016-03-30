@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy} from 'angular2/core';
 import {DataService} from '../../data';
 import {EditNotePage} from '../edit-note/edit-note';
 import {Note} from '../../note';
-import {UniquePipe} from '../../unique.pipe';
+import {UniquePipe} from '../../pipes/unique.pipe';
 
 
 @Page({
