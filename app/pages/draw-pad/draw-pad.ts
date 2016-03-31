@@ -91,7 +91,7 @@ export class DrawPadPage {
             var heightRatio = 300 / canvas.getBoundingClientRect().height;
             var widthRatio = 300 / canvas.getBoundingClientRect().width;
 
-            if (msTouchLast != null) {
+            if (msTouchLast !== null) {
                 context.beginPath();
                 context.moveTo((msTouchLast.x - offsetLeft) * widthRatio, (msTouchLast.y - offsetTop) * heightRatio);
                 context.lineTo((event.pageX - offsetLeft) * widthRatio, (event.pageY - offsetTop) * heightRatio);

@@ -12,7 +12,7 @@ let fn = null;
 let mockContextObject = {
   fillStyle: "",
   drawImage: () => {}
-}
+};
 let mockCanvasObject = {
   toDataURL: () => {
     return "this://is.a.fake.url";

@@ -27,16 +27,15 @@ export class OrderBy implements PipeTransform {
 
     if(!Array.isArray(input)) return input;
 
-    if(!Array.isArray(config) || (Array.isArray(config) && config.length == 1)){
+    if(!Array.isArray(config) || (Array.isArray(config) && config.length === 1)){
       var propertyToCheck:string = !Array.isArray(config) ? config : config[0];
-      var desc = propertyToCheck.substr(0, 1) == '-';
+      var desc = propertyToCheck.substr(0, 1) === '-';
 
        //Basic array
-       if(!propertyToCheck || propertyToCheck == '-' || propertyToCheck == '+'){
+       if(!propertyToCheck || propertyToCheck === '-' || propertyToCheck === '+') {
          return !desc ? input.sort() : input.sort().reverse();
-       }
-       else {
-         var property:string = propertyToCheck.substr(0, 1) == '+' || propertyToCheck.substr(0, 1) == '-'
+       } else {
+         var property:string = propertyToCheck.substr(0, 1) === '+' || propertyToCheck.substr(0, 1) === '-'
            ? propertyToCheck.substr(1)
            : propertyToCheck;
 
@@ -51,8 +50,8 @@ export class OrderBy implements PipeTransform {
         //Loop over property of the array in order and sort
         return input.sort(function(a:any,b:any){
           for(var i:number = 0; i < config.length; i++){
-            var desc = config[i].substr(0, 1) == '-';
-            var property = config[i].substr(0, 1) == '+' || config[i].substr(0, 1) == '-'
+            var desc = config[i].substr(0, 1) === '-';
+            var property = config[i].substr(0, 1) === '+' || config[i].substr(0, 1) === '-'
               ? config[i].substr(1)
               : config[i];
 
@@ -61,7 +60,7 @@ export class OrderBy implements PipeTransform {
                 : -OrderBy._orderByComparator(a[property], b[property]);
 
             //Don't return 0 yet in case of needing to sort by next property
-            if(comparison != 0) return comparison;
+            if(comparison !== 0) return comparison;
           }
 
         return 0; //equal each other

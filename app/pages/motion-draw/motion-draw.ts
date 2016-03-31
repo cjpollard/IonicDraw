@@ -1,4 +1,5 @@
-import {Page, NavController, DeviceMotion, Platform} from 'ionic-angular';
+import {Page, NavController, Platform} from 'ionic-angular';
+import {DeviceMotion} from 'ionic-native';
 import {GlobalFunctions} from '../../globals';
 
 
@@ -23,7 +24,7 @@ export class MotionDrawPage {
             this.context.fillStyle = "rgba(0, 0, 0, 0.5)";
         });
         this.deviceAxis = {};
-        this.watch;
+        this.watch = null;
         this.lastKnownPosition = { x: 200, y: 200 };
     }
 
@@ -31,7 +32,9 @@ export class MotionDrawPage {
         let that = this;
         var x, y, z;
 
-        function onSuccess(acceleration) {
+        var options = { frequency: 100 };  // Update every 0.1 seconds
+
+        this.watch = DeviceMotion.watchAcceleration(options).subscribe(acceleration => {
             x = acceleration.x;
             y = acceleration.y;
             z = acceleration.z;
@@ -45,22 +48,13 @@ export class MotionDrawPage {
             that.context.strokeStyle = "black";
             that.context.stroke();
             that.context.closePath();
-        }
-
-        function onError() {
-            alert('Something went wrong, release the bees!');
-        }
-
-        var options = { frequency: 100 };  // Update every 0.1 seconds
-
-        that.watch = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+        });
     }
 
     stop() {
-        let that = this;
-        navigator.accelerometer.clearWatch(that.watch);
-        that.context.closePath();
-        that.watch = null;
+        this.watch.unsubscribe();
+        this.context.closePath();
+        this.watch = null;
     }
 
     clearCanvas() {

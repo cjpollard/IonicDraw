@@ -21,6 +21,7 @@ platforms/
 plugins/
 tmp/
 temp/
+typings/
 www/build/
 $RECYCLE.BIN/
 

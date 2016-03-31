@@ -1,4 +1,5 @@
 import {Page, NavController, Platform} from 'ionic-angular';
+import {Camera} from 'ionic-native';
 import {DrawPadPage} from '../draw-pad/draw-pad';
 
 
@@ -11,6 +12,7 @@ export class HomePage {
     constructor(nav: NavController, platform: Platform) {
         this.nav = nav;
         this.platform = platform;
+        Camera.cleanup();
     }
 
     clearPicture() {
@@ -22,16 +24,16 @@ export class HomePage {
         var opts = {};
         var clicky = document.getElementById('clicky');
         this.platform.ready().then(() => {
-            navigator.camera.getPicture(function(imageURI) {
+            Camera.getPicture({}).then((imageURI) => {
                 clicky.setAttribute('src', imageURI);
             }, function(err) {
 
-            }, opts);
+            });
         });
     }
 
     pushPicture() {
         var clicky = document.getElementById('clicky');
-        this.nav.push(DrawPadPage, { 'img': clicky.getAttribute('src') })
+        this.nav.push(DrawPadPage, { 'img': clicky.getAttribute('src') });
     }
 }

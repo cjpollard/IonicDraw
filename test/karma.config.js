@@ -22,11 +22,12 @@ module.exports = function(config) {
       'node_modules/systemjs/dist/system.src.js',
       'node_modules/reflect-metadata/Reflect.js',
 
+      { pattern: 'test/ionic-angular.js', included: false, watched: false },
       { pattern: 'node_modules/angular2/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/ionic-angular/**/*.js', included: false, watched: false },
+      { pattern: 'node_modules/ionic-native/**/*.js', included: false, watched: false},
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
       { pattern: 'www/build/test/**/*.js', included: false, watched: true },
-      { pattern: 'www/build/test/**/*.html', included: false, served: true},
 
       'test/test-main.js'
     ],
@@ -35,7 +36,8 @@ module.exports = function(config) {
     exclude: [
       'node_modules/angular2/**/*_spec.js',
       'node_modules/ionic-angular/**/*spec*',
-      'node_modules/ionic-angular/decorators/app.js'
+      'node_modules/ionic-angular/decorators/app.js',
+      'node_modules/ionic-native/**/*spec*'
     ],
 
     // preprocess matching files before serving them to the browser
@@ -68,8 +70,8 @@ module.exports = function(config) {
     proxies: {
       // allows us to keep test code separate from app code and still have the references work
       '/base/node_modules/ionic-angular/decorators/app.js': '/base/www/build/test/app.stub.js', // stub out Ionic's @App decorator
-      '/base/www/build/app': '/base/www/build/test',
-      '/build': '/base/www/build/test'
+      '/base/ionic-angular.js': '/base/test/ionic-angular.js',
+      '/base/ionic-native.js': '/base/test/ionic-native.js'
     },
 
     // level of logging
@@ -91,10 +93,6 @@ module.exports = function(config) {
         flags: ['--no-sandbox']
       }
     },
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
   });
 
   if (process.env.APPVEYOR) {

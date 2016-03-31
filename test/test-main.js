@@ -1,7 +1,7 @@
 // Turn on full stack traces in errors to help debugging
 Error.stackTraceLimit=Infinity;
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
 
 // Cancel Karma's synchronous start,
 // we will call `__karma__.start()` later, once all the specs are loaded.
@@ -11,8 +11,8 @@ System.config({
   baseURL: '/base/',
   defaultJSExtensions: true,
   paths: {
-    'ionic/*': 'node_modules/ionic-angular/*.js',
     'ionic-angular/*': 'node_modules/ionic-angular/*.js',
+    'ionic-native/*': 'node_modules/ionic-native/*.js',
     'angular2/*': 'node_modules/angular2/*.js',
     'rxjs/*': 'node_modules/rxjs/*.js'
   }

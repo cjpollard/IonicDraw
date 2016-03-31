@@ -1,20 +1,14 @@
 {
   "compilerOptions": {
-    "isolatedModules": true,
-    "noLib": true,
     "target": "es5",
     "module": "commonjs",
-    "noEmitOnError": false,
-    "rootDir": ".",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "inlineSourceMap": false,
-    "inlineSources": false
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules",
-    "www/build"
+    "typings/main",
+    "typings/main.d.ts"
   ],
   "compileOnSave": true
 }
