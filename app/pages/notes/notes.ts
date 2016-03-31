@@ -26,11 +26,10 @@ export class NotesPage {
         this.searchQuery = "";
     }
 
-    updateNotes(event?: any, refresher?: any) {
+    updateNotes(refresher?: any) {
         let that = this;
         refresher = typeof refresher !== "undefined" ? refresher : { complete: function() { } };
         this.dataService.getNotes("note", (notes: Array<Note>) => {
-            that.notes = [];
             that.notes = notes;
             refresher.complete();
         });

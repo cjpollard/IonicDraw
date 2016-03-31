@@ -7,7 +7,7 @@
 
 
 <ion-content>
-  <ion-refresher (refresh)="updateNotes($event, refresher)" pullingText="Grabbing notes...">
+  <ion-refresher (refresh)="updateNotes($event)" pullingText="Grabbing notes...">
   </ion-refresher>
   <ion-searchbar [(ngModel)]="searchQuery" (input)="filterNotes($event)" (cancel)="updateNotes()" (clear)="updateNotes()"></ion-searchbar>
 

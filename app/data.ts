@@ -26,6 +26,7 @@ export class DataService {
     }
 
     getNotes(type: string, callback: (notes: any) => void) {
+        this.notes = [];
         this.storage.query("SELECT * FROM notes WHERE type='" + type + "'").then((tx) => {
             let success = tx.res;
             if (success && success.rows.length > 0) {
