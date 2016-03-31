@@ -1,6 +1,7 @@
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
 import { IonicApp, Page, NavController, NavParams, Platform }   from 'ionic-angular';
+import { DeviceMotion } from 'ionic-native';
 import { MotionDrawPage }           from './motion-draw';
 import { GlobalFunctions } from '../../globals';
 
