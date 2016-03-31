@@ -1,4 +1,4 @@
-import {Page, NavController, NavParams, Alert, Platform} from 'ionic-framework/ionic';
+import {Page, NavController, NavParams, Alert, Platform} from 'ionic-angular';
 import {DataService} from '../../data';
 import {GlobalFunctions} from '../../globals';
 import {GalleryPage} from '../gallery/gallery';

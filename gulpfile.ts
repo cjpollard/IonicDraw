@@ -10,6 +10,44 @@ import * as ts           from 'gulp-typescript';
 import * as tslint       from 'gulp-tslint';
 import * as util         from 'gulp-util';
 
+let argv = process.argv;
+
+/**
+ * Ionic Gulp tasks, for more information on each see
+ * https://github.com/driftyco/ionic-gulp-tasks
+ */
+var buildWebpack = require('ionic-gulp-webpack-build');
+var buildSass = require('ionic-gulp-sass-build');
+var copyHTML = require('ionic-gulp-html-copy');
+var copyFonts = require('ionic-gulp-fonts-copy');
+var gulpWatch = require('gulp-watch');
+
+gulp.task('watch', ['sass', 'html', 'fonts'], function(){
+  gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
+  gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
+  return buildWebpack({ watch: true });
+});
+gulp.task('build', ['sass', 'html', 'fonts'], buildWebpack);
+gulp.task('sass', buildSass);
+gulp.task('html', copyHTML);
+gulp.task('fonts', copyFonts);
+gulp.task('clean', function(done){
+  del('www/build', done);
+});
+
+/**
+ * Ionic hooks
+ * Add ':before' or ':after' to any Ionic project command name to run the specified
+ * tasks before or after the command.
+ */
+gulp.task('serve:before', ['watch']);
+gulp.task('emulate:before', ['build']);
+gulp.task('deploy:before', ['build']);
+
+// we want to 'watch' when livereloading
+var shouldWatch = argv.indexOf('-l') > -1 || argv.indexOf('--livereload') > -1;
+gulp.task('run:before', [shouldWatch ? 'watch' : 'build']);
+
 let plugins: any = loadPlugins();
 
 // compile typescript into indivudal files, project directoy structure is replicated under www/build/test
@@ -37,7 +75,7 @@ function clean(done) {
   });
 }
 
-function copyHTML() {
+function copyHTMLForTest() {
   return gulp.src(join(APP_DIR, '**/*.html'))
     .pipe(gulp.dest(TEST_DEST));
 }
@@ -62,7 +100,7 @@ function startKarma(done) {
 
 gulp.task('test.clean', clean);
 gulp.task('test.lint', lint);
-gulp.task('test.copyHTML', copyHTML);
+gulp.task('test.copyHTML', copyHTMLForTest);
 gulp.task('test.build', ['test.copyHTML'], build);
 gulp.task('startKarma', startKarma);
 

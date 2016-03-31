@@ -1,4 +1,4 @@
-import {Page, Storage, SqlStorage, NavController, NavParams, Alert} from 'ionic-framework/ionic';
+import {Page, Storage, SqlStorage, NavController, NavParams, Alert} from 'ionic-angular';
 import {DataService} from '../../data';
 import {NotesPage} from '../notes/notes';
 import {Note} from '../../note';

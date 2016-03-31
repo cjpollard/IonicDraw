@@ -1,4 +1,4 @@
-import {SqlStorage} from 'ionic-framework/ionic';
+import {SqlStorage} from 'ionic-angular';
 import {Injectable} from 'angular2/core';
 import {Note} from './note';
 

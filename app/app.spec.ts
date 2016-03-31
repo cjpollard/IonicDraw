@@ -1,6 +1,6 @@
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
-import { IonicApp, Platform }   from 'ionic-framework/ionic';
+import { IonicApp, Platform }   from 'ionic-angular';
 import { MyApp }           from '../app/app';
 import { DataService } from '../app/data';
 

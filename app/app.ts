@@ -1,4 +1,4 @@
-import {App, IonicApp, Platform} from 'ionic-framework/ionic';
+import {App, IonicApp, Platform} from 'ionic-angular';
 
 import {HomePage} from './pages/home/home';
 import {DrawPadPage} from './pages/draw-pad/draw-pad';

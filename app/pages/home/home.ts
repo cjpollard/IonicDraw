@@ -1,4 +1,4 @@
-import {Page, NavController, Platform} from 'ionic-framework/ionic';
+import {Page, NavController, Platform} from 'ionic-angular';
 import {DrawPadPage} from '../draw-pad/draw-pad';
 
 

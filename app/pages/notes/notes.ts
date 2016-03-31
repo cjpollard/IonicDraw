@@ -1,4 +1,4 @@
-import {Page, NavController, Alert} from 'ionic-framework/ionic';
+import {Page, NavController, Alert} from 'ionic-angular';
 import {ChangeDetectionStrategy} from 'angular2/core';
 import {DataService} from '../../data';
 import {EditNotePage} from '../edit-note/edit-note';

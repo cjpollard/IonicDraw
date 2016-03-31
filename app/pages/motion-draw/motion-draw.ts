@@ -1,4 +1,4 @@
-import {Page, NavController, DeviceMotion, Platform} from 'ionic-framework/ionic';
+import {Page, NavController, DeviceMotion, Platform} from 'ionic-angular';
 import {GlobalFunctions} from '../../globals';
 
 

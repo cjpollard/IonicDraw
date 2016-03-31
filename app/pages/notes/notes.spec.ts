@@ -1,6 +1,6 @@
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
-import { IonicApp, Page, NavController }   from 'ionic-framework/ionic';
+import { IonicApp, Page, NavController }   from 'ionic-angular';
 import { NotesPage }           from './notes';
 import { DataService } from '../../data';
 
