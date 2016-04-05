@@ -13,6 +13,7 @@ export function main() {
 
     beforeEach(function() {
       let platform = new Platform();
+      Camera.cleanup = () => {};
       page = new HomePage(null, platform);
     });
 

@@ -4,6 +4,7 @@ import { IonicApp, Page, NavController, NavParams, Platform }   from 'ionic-angu
 import { DrawPadPage }           from './draw-pad';
 import { DataService } from '../../data';
 import { GlobalFunctions } from '../../globals';
+import { Note } from '../../note';
 
 let page = null;
 let service = null;

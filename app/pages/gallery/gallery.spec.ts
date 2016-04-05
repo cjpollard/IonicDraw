@@ -3,6 +3,8 @@ import { setBaseTestProviders } from 'angular2/testing';
 import { IonicApp, Page, NavController }   from 'ionic-angular';
 import { GalleryPage }           from './gallery';
 import { DataService } from '../../data';
+import { Note } from '../../note';
+import { UniquePipe } from '../../pipes/unique.pipe';
 
 let page = null;
 let service = null;
