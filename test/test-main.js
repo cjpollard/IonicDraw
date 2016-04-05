@@ -12,7 +12,6 @@ System.config({
   defaultJSExtensions: true,
   paths: {
     'ionic-angular/*': 'node_modules/ionic-angular/*.js',
-    'ionic-native/*': 'node_modules/ionic-native/*.js',
     'angular2/*': 'node_modules/angular2/*.js',
     'rxjs/*': 'node_modules/rxjs/*.js'
   }
