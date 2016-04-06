@@ -21,6 +21,7 @@
 /// <reference path="browser/ambient/minimatch/index.d.ts" />
 /// <reference path="browser/ambient/node/index.d.ts" />
 /// <reference path="browser/ambient/orchestrator/index.d.ts" />
+/// <reference path="browser/ambient/phonegap-plugin-push/index.d.ts" />
 /// <reference path="browser/ambient/q/index.d.ts" />
 /// <reference path="browser/ambient/run-sequence/index.d.ts" />
 /// <reference path="browser/ambient/serve-static/index.d.ts" />

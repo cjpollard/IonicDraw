@@ -52,6 +52,12 @@
   "description": "DrawPad: An Ionic project",
   "version": "0.3.0",
   "cordovaPlugins": [
+    {
+      "variables": {
+        "SENDER_ID": "12345678"
+      },
+      "locator": "phonegap-plugin-push"
+    },
     "cordova-plugin-camera",
     "cordova-plugin-console",
     "cordova-plugin-device",
@@ -60,7 +66,8 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-whitelist",
     "cordova-sqlite-storage",
-    "cordova-plugin-ace"
+    "cordova-plugin-ace",
+    "phonegap-plugin-push"
   ],
   "cordovaPlatforms": [
     "android"
