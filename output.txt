@@ -1,5 +1,0 @@
-
-> drawpad@0.3.0 test c:\Projects\ionic\DrawPad
-> gulp --gulpfile test/gulpfile.ts --cwd ./ test
-
-[14:37:13] Requiring external module ts-node/register
