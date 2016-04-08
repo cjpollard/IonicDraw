@@ -10,8 +10,4 @@ export class NewPagePage {
     this.nav = nav;
     console.log("New page");
   }
-
-  goBack() {
-    this.nav.pop();
-  }
 }
