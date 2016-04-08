@@ -12,7 +12,9 @@ export class HomePage {
     constructor(nav: NavController, platform: Platform) {
         this.nav = nav;
         this.platform = platform;
-        Camera.cleanup();
+        this.platform.ready().then(() => {
+            Camera.cleanup();
+        });
     }
 
     clearPicture() {

@@ -8,6 +8,7 @@ export class NewPagePage {
 
   constructor(nav) {
     this.nav = nav;
+    console.log("New page");
   }
 
   goBack() {
