@@ -70,7 +70,9 @@
     "cordova-plugin-whitelist",
     "cordova-sqlite-storage",
     "cordova-plugin-ace",
-    "phonegap-plugin-push"
+    "phonegap-plugin-push",
+    "cordova-plugin-x-toast",
+    "cordova-plugin-vibration"
   ],
   "cordovaPlatforms": [
     "android"
