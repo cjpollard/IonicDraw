@@ -26,6 +26,7 @@ module.exports = function(config) {
       { pattern: 'node_modules/angular2/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/ionic-angular/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/ionic-native/dist/**/*.js', included: false, watched: false, served: true},
+      { pattern: 'node_modules/es6-shim/*.js', included: false, watched: false, served: true},
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
       { pattern: 'www/build/test/**/*.js', included: false, watched: true },
 
@@ -73,7 +74,8 @@ module.exports = function(config) {
       '/base/plugins': '/base/node_modules/ionic-native/dist/plugins',
       '/base/ng1.js': '/base/node_modules/ionic-native/dist/ng1.js',
       '/base/util.js': '/base/node_modules/ionic-native/dist/util.js',
-      '/base/ionic-native.js': '/base/node_modules/ionic-native/dist/index.js'
+      '/base/ionic-native.js': '/base/node_modules/ionic-native/dist/index.js',
+      '/base/es6-shim.js': '/base/node_modules/es6-shim/es6-shim.js'
     },
 
     // level of logging
