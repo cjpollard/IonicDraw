@@ -2,8 +2,8 @@ export class Character {
     constructor(
         public name: string,
         public characteristics: {
-            height: number,
-            weight: number,
+            height: string,
+            weight: string,
             eyes: string,
             hair: string
         },

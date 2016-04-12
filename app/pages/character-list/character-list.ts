@@ -18,8 +18,8 @@ export class CharacterListPage {
       {
         name: "Luiril",
         characteristics: {
-          height: 150,
-          weight: 108,
+          height: "5' 0\"",
+          weight: "108 lbs",
           eyes: "Green",
           hair: "Brown"
         },
@@ -28,8 +28,8 @@ export class CharacterListPage {
       {
         name: "Alrim",
         characteristics: {
-          height: 168,
-          weight: 130,
+          height: "5' 6\"",
+          weight: "130 lbs",
           eyes: "Blue",
           hair: "Brown"
         },
