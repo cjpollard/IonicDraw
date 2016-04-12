@@ -7,7 +7,7 @@ import {DrawPadPage} from './pages/draw-pad/draw-pad';
 import {MotionDrawPage} from './pages/motion-draw/motion-draw';
 import {NotesPage} from './pages/notes/notes';
 import {GalleryPage} from './pages/gallery/gallery';
-import {NewPagePage} from './pages/new-page/new-page';
+import {CharacterListPage} from './pages/character-list/character-list';
 import {DataService} from './data';
 
 @App({
@@ -33,12 +33,12 @@ export class MyApp {
 
         // set our app's pages
         this.pages = [
-            { title: 'HomePage', component: HomePage },
+            { title: 'Home', component: HomePage },
             { title: 'DrawPad', component: DrawPadPage },
             { title: 'MotionDraw', component: MotionDrawPage },
-            { title: 'NotesPage', component: NotesPage },
-            { title: 'GalleryPage', component: GalleryPage },
-            { title: 'NewPagePage', component: NewPagePage }
+            { title: 'Notes', component: NotesPage },
+            { title: 'Gallery', component: GalleryPage },
+            { title: 'Characters', component: CharacterListPage }
         ];
 
         this.rootPage = HomePage;

@@ -1,0 +1,17 @@
+<!--
+  Generated template for the CharacterListPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-navbar *navbar>
+  <ion-title>CharacterList</ion-title>
+</ion-navbar>
+
+<ion-content padding class="character-list">
+  <ion-list *ngFor="#char of characters">
+    <ion-item (click)="loadChar(char)">
+      <h2>{{char.name}}</h2>
+    </ion-item>
+  </ion-list>
+</ion-content>
