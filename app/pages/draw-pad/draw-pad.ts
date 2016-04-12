@@ -49,7 +49,7 @@ export class DrawPadPage {
         function drawImageFromParam(img) {
             var baseImage = new Image();
             baseImage.src = img;
-            context.drawImage(baseImage, 0, 0, 300, 500);
+            context.drawImage(baseImage, 0, 0);
         }
 
         if (that.params && that.params.data.img) {
