@@ -6,9 +6,9 @@
 </ion-navbar>
 
 <ion-content padding class="character-list">
-  <ion-list *ngFor="#char of characters">
-    <ion-item (click)="loadChar(char)">
-      <h2>{{char.name}}</h2>
+  <ion-list>
+    <ion-item *ngFor="#char of characters" (click)="loadChar(char)">
+      {{char.name}}
     </ion-item>
   </ion-list>
 </ion-content>
