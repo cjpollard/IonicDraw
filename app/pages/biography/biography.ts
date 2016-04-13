@@ -12,8 +12,4 @@ export class Biography {
     this.nav = nav;
     this.char = params.data;
   }
-
-  onPageWillEnter() {
-      console.log("biography tab");
-  }
 }

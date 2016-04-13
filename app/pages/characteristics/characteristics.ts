@@ -19,8 +19,4 @@ export class Characteristics {
   convertUnit() {
     this.units = this.units === "imperial" ? "metric" : "imperial";
   }
-
-  onPageWillEnter() {
-    console.log("characteristics tab");
-  }
 }
