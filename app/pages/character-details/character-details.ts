@@ -1,13 +1,11 @@
 import {Page, NavController, NavParams, Platform} from 'ionic-angular';
 import {Vibration} from 'ionic-native';
-import {MeasurementPipe} from '../../pipes/measurement.pipe';
 import {Character} from '../../character';
 import {Characteristics} from '../characteristics/characteristics';
 import {Biography} from '../biography/biography';
 
 @Page({
-  templateUrl: 'build/pages/character-details/character-details.html',
-  pipes: [MeasurementPipe]
+  templateUrl: 'build/pages/character-details/character-details.html'
 })
 export class CharacterDetailsPage {
   private nav: NavController;
@@ -15,8 +13,6 @@ export class CharacterDetailsPage {
   public params: NavParams;
   public char: Character;
   public title: string;
-  public tab: string = "characteristics";
-  public units: string = "imperial";
   public characteristics;
   public biography;
 
@@ -35,9 +31,5 @@ export class CharacterDetailsPage {
     this.platform.ready().then(() => {
       Vibration.vibrate(500);
     });
-  }
-
-  convertUnit() {
-    this.units = this.units === "imperial" ? "metric" : "imperial";
   }
 }

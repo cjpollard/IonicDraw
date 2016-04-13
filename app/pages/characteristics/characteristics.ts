@@ -8,7 +8,7 @@ import {CharacterDetailsPage} from '../character-details/character-details';
   pipes: [MeasurementPipe]
 })
 export class Characteristics {
-  public units: string;
+  public units: string = "imperial";
   public char: Character;
 
   constructor(public nav: NavController, private params: NavParams) {
