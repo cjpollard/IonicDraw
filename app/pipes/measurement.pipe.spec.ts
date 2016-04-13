@@ -17,6 +17,11 @@ export function main() {
       expect(pipe.transform).toBeDefined();
     });
 
+    it('transform returns input if not a height or weight in metric or imperial', () => {
+        expect(pipe.transform("some random text")).toEqual("some random text");
+        expect(pipe.transform("some random text", ["."])).toEqual("some random text");
+    });
+
     it('has a function for converting metric height to imperial height', () => {
       expect(pipe.metricToImperialHeight).toBeDefined();
     });

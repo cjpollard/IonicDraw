@@ -45,7 +45,7 @@ export class MeasurementPipe {
     }
 
     transform(input: string, args: Array<any>): string {
-
+        if(!args) return input;
         let type = input.indexOf("kg") !== -1 || input.indexOf("lbs") !== -1 ? "weight" : "height";
         let unit = args[0];
 
