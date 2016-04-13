@@ -23,7 +23,9 @@ export class CharacterListPage {
           eyes: "Green",
           hair: "Brown"
         },
-        biography: {}
+        biography: {
+          bio: "Some info about the character goes here"
+        }
       },
       {
         name: "Alrim",
@@ -33,7 +35,9 @@ export class CharacterListPage {
           eyes: "Blue",
           hair: "Brown"
         },
-        biography: {}
+        biography: {
+          bio: "Some info about the character goes here"
+        }
       }
     ];
   }

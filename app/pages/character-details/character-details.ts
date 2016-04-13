@@ -1,6 +1,7 @@
 import {Page, NavController, NavParams, Platform} from 'ionic-angular';
 import {Vibration} from 'ionic-native';
 import {MeasurementPipe} from '../../pipes/measurement.pipe';
+import {Character} from '../../character';
 
 @Page({
   templateUrl: 'build/pages/character-details/character-details.html',
@@ -10,7 +11,7 @@ export class CharacterDetailsPage {
   private nav: NavController;
   private platform: Platform;
   public params: NavParams;
-  public char: any;
+  public char: Character;
   public title: string;
   public tab: string = "characteristics";
   public units: string = "imperial";
