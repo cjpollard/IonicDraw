@@ -5,38 +5,9 @@
   <ion-title>{{title}}</ion-title>
 </ion-navbar>
 
-<ion-content padding class="new-page">
-  <div padding>
-    <ion-segment [(ngModel)]="tab">
-      <ion-segment-button value="characteristics">
-        Characteristics
-      </ion-segment-button>
-      <ion-segment-button value="biography">
-        Biography
-      </ion-segment-button>
-    </ion-segment>
-  </div>
+<ion-tabs [selectedIndex]="0" tabbarLayout="button" dark preloadTabs="true">
+  <ion-tab tabTitle="Characteristics" [root]="characteristics" [rootParams]="char"></ion-tab>
 
-  <div [ngSwitch]="tab">
-    <ion-list *ngSwitchWhen="'characteristics'">
-      <ion-item (click)="convertUnit()">
-        <h2>Height: {{char.characteristics.height | measurement:units}}</h2>
-      </ion-item>
-      <ion-item (click)="convertUnit()">
-        <h2>Weight: {{char.characteristics.weight | measurement:units}}</h2>
-      </ion-item>
-      <ion-item>
-        <h2>Eye colour: {{char.characteristics.eyes}}</h2>
-      </ion-item>
-      <ion-item>
-        <h2>Hair colour: {{char.characteristics.hair}}</h2>
-      </ion-item>
-    </ion-list>
+  <ion-tab tabTitle="Biography" [root]="biography" [rootParams]="char"></ion-tab>
+</ion-tabs>
 
-    <ion-list *ngSwitchWhen="'biography'">
-      <ion-item>
-        <h2>{{char.biography.bio}}</h2>
-      </ion-item>
-    </ion-list>
-  </div>
-</ion-content>

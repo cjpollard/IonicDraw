@@ -1,0 +1,16 @@
+<ion-content>
+  <ion-list>
+    <ion-item (click)="convertUnit()">
+      <h2>Height: {{char.characteristics.height | measurement:units}}</h2>
+    </ion-item>
+    <ion-item (click)="convertUnit()">
+      <h2>Weight: {{char.characteristics.weight | measurement:units}}</h2>
+    </ion-item>
+    <ion-item>
+      <h2>Eye colour: {{char.characteristics.eyes}}</h2>
+    </ion-item>
+    <ion-item>
+      <h2>Hair colour: {{char.characteristics.hair}}</h2>
+    </ion-item>
+  </ion-list>
+</ion-content>

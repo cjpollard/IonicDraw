@@ -2,6 +2,8 @@ import {Page, NavController, NavParams, Platform} from 'ionic-angular';
 import {Vibration} from 'ionic-native';
 import {MeasurementPipe} from '../../pipes/measurement.pipe';
 import {Character} from '../../character';
+import {Characteristics} from '../characteristics/characteristics';
+import {Biography} from '../biography/biography';
 
 @Page({
   templateUrl: 'build/pages/character-details/character-details.html',
@@ -15,6 +17,8 @@ export class CharacterDetailsPage {
   public title: string;
   public tab: string = "characteristics";
   public units: string = "imperial";
+  public characteristics;
+  public biography;
 
   constructor(nav: NavController, platform: Platform, params: NavParams) {
     this.nav = nav;
@@ -22,11 +26,12 @@ export class CharacterDetailsPage {
     this.platform = platform;
     this.char = params.get("char");
     this.title = this.char.name;
+    this.characteristics = Characteristics;
+    this.biography = Biography;
     this.init();
   }
 
   init() {
-    console.log("New page");
     this.platform.ready().then(() => {
       Vibration.vibrate(500);
     });
