@@ -20,10 +20,10 @@
   <div [ngSwitch]="tab">
     <ion-list *ngSwitchWhen="'characteristics'">
       <ion-item (click)="convertUnit()">
-        <h2>Height: {{char.characteristics.height | measurement:unit}}</h2>
+        <h2>Height: {{char.characteristics.height | measurement:units}}</h2>
       </ion-item>
       <ion-item (click)="convertUnit()">
-        <h2>Weight: {{char.characteristics.weight | measurement:unit}}</h2>
+        <h2>Weight: {{char.characteristics.weight | measurement:units}}</h2>
       </ion-item>
       <ion-item>
         <h2>Eye colour: {{char.characteristics.eyes}}</h2>

@@ -33,6 +33,5 @@ export class CharacterDetailsPage {
 
   convertUnit() {
     this.units = this.units === "imperial" ? "metric" : "imperial";
-
   }
 }
