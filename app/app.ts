@@ -9,28 +9,31 @@ import {MotionDrawPage} from './pages/motion-draw/motion-draw';
 import {NotesPage} from './pages/notes/notes';
 import {GalleryPage} from './pages/gallery/gallery';
 import {CharacterListPage} from './pages/character-list/character-list';
-import {DataService} from './data';
+import {DataService} from './services/data.service';
+import {CharacterService} from './services/character.service';
 
 @App({
     templateUrl: 'build/app.html',
-    providers: [DataService],
+    providers: [CharacterService, DataService],
     config: {}
 })
 export class MyApp {
 
     private app: IonicApp;
     private platform: Platform;
+    private characterService: CharacterService;
     private dataService: DataService;
     private pages: Array<any>;
     private rootPage: any;
 
-    constructor(app: IonicApp, platform: Platform, dataService: DataService) {
+    constructor(app: IonicApp, platform: Platform, dataService: DataService, characterService: CharacterService) {
 
         // set up our app
         this.app = app;
         this.platform = platform;
         this.initializeApp();
         this.dataService = dataService;
+        this.characterService = characterService;
 
         // set our app's pages
         this.pages = [

@@ -1,5 +1,5 @@
 import {Page, NavController, NavParams, Alert, Platform} from 'ionic-angular';
-import {DataService} from '../../data';
+import {DataService} from '../../services/data.service';
 import {GlobalFunctions} from '../../globals';
 import {GalleryPage} from '../gallery/gallery';
 import {Note} from '../../note';

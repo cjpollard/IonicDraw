@@ -1,5 +1,5 @@
 import {Page, Storage, SqlStorage, NavController, NavParams, Alert} from 'ionic-angular';
-import {DataService} from '../../data';
+import {DataService} from '../../services/data.service';
 import {NotesPage} from '../notes/notes';
 import {Note} from '../../note';
 

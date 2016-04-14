@@ -1,6 +1,6 @@
 import {Page, NavController, Alert} from 'ionic-angular';
 import {ChangeDetectionStrategy} from 'angular2/core';
-import {DataService} from '../../data';
+import {DataService} from '../../services/data.service';
 import {EditNotePage} from '../edit-note/edit-note';
 import {Note} from '../../note';
 import {UniquePipe} from '../../pipes/unique.pipe';
