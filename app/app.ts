@@ -1,4 +1,5 @@
 import 'es6-shim';
+import 'rxjs/Rx';
 import {App, IonicApp, Platform} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 
@@ -69,7 +70,7 @@ export class MyApp {
     openPage(page) {
         // navigate to the new page if it is not the current page
         let nav = this.app.getComponent('nav');
-        nav.setRoot(page.component);
+        nav.push(page.component);
     }
 
 }

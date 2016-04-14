@@ -26,7 +26,6 @@ www/build/
 $RECYCLE.BIN/
 
 app/**/*.js
-gulpfile.js
 **/*.map
 
 .DS_Store

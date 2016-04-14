@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Luiril",
+    "characteristics": {
+      "height": "5' 0\"",
+      "weight": "108 lbs",
+      "eyes": "Green",
+      "hair": "Brown"
+    },
+    "biography": {
+      "bio": "Some info about the character goes here"
+    }
+  },
+  {
+    "name": "Alrim",
+    "characteristics": {
+      "height": "5' 8\"",
+      "weight": "130 lbs",
+      "eyes": "Blue",
+      "hair": "Turquoise"
+    },
+    "biography": {
+      "bio": "Some info about the character goes here"
+    }
+  },
+  {
+    "name": "Peleinr",
+    "characteristics": {
+        "height": "5' 7\"",
+        "weight": "128 lbs",
+        "eyes": "Brown",
+        "hair": "Brown"
+    },
+    "biography": {
+        "bio": "Some info about the character goes here"
+    }
+  }
+]
