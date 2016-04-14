@@ -40,21 +40,20 @@ export class GalleryPage {
     }
 
     presentConfirm() {
-        var that = this;
         var alert = Alert.create({
             title: 'Confirm delete',
             message: 'Are you sure you want to delete all drawings?',
             buttons: [{
                 text: 'Nope',
                 handler: () => {
-                    that.nav.remove(1);
+                    this.nav.remove(1);
                 }
             }, {
                     text: 'Yep',
                     handler: () => {
                         this.dataService.deleteAll('canvas');
                         this.updateNotes();
-                        that.nav.remove(1);
+                        this.nav.remove(1);
                     }
                 }]
         });

@@ -27,28 +27,27 @@ export class EditNotePage {
 
     save() {
         this.dataService.saveNote(this.note, () => {
-            var that = this;
             let alert = Alert.create({
                 title: 'Note saved',
                 message: 'Your note was saved successfully.',
                 buttons: [{
                     text: 'Thanks?',
                     handler: () => {
-                        that.nav.remove(1);
-                        that.nav.pop();
+                        this.nav.remove().then(() => {
+                            this.nav.pop();
+                        });
                     }
                 }]
             });
             this.nav.present(alert);
         }, (error: any) => {
-            var that = this;
             let alert = Alert.create({
                 title: 'Oops',
                 message: 'Something happened, maybe you can make sense of this...\n' + JSON.stringify(error) + '\n ... No? Okay, just hit the button to make it go away.',
                 buttons: [{
                     text: 'Argh!',
                     handler: () => {
-                        that.nav.remove(1);
+                        this.nav.pop();
                     }
                 }]
             });
