@@ -75,10 +75,7 @@
     "cordova-plugin-vibration"
   ],
   "cordovaPlatforms": [
-    {
-      "platform": "android",
-      "locator": "windows"
-    }
+    "android"
   ],
   "scripts": {
     "postinstall": "typings install",
