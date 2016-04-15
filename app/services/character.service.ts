@@ -11,7 +11,6 @@ export class CharacterService {
     }
 
     getCharacters() {
-        console.log(this.charUrl);
         return this.http.get(this.charUrl)
                         .map(res => res.json())
                         .catch(this.handleError);
