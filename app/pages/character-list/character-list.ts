@@ -1,18 +1,20 @@
 import {Page, NavController} from 'ionic-angular';
-import {Observable} from 'rxjs/Observable';
-import {Http, Response, HTTP_PROVIDERS} from 'angular2/http';
+import {Response} from 'angular2/http';
+import {Observable} from 'rxjs/Rx';
 import {Character} from '../../character';
+import {CharacterService} from '../../services/character.service';
 import {CharacterDetailsPage} from '../character-details/character-details';
 
 @Page({
   templateUrl: 'build/pages/character-list/character-list.html',
-  providers: [HTTP_PROVIDERS]
+  providers: [CharacterService]
 })
 export class CharacterListPage {
   public characters: Array<Character>;
 
-  constructor(public nav: NavController, private http: Http) {
+  constructor(public nav: NavController, private characterService: CharacterService) {
     this.nav = nav;
+    this.characterService = characterService;
     this.init();
   }
 
@@ -21,8 +23,7 @@ export class CharacterListPage {
   }
 
   getChars() {
-    this.http.get("build/character.data.json")
-              .map(res => res.json())
+    this.characterService.getCharacters()
               .subscribe((chars) => {
                 this.characters = chars;
               }, error => this.handleError(error));
@@ -33,6 +34,6 @@ export class CharacterListPage {
   }
 
   handleError(error: Response) {
-    return Observable.throw(error.json().error || "Something happened");
-  }
+        return Observable.throw(error.json().error || "Couldn't retrieve characters");
+    }
 }

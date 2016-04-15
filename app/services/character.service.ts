@@ -1,11 +1,9 @@
 import {Injectable} from 'angular2/core';
-import {Http, Response, HTTP_PROVIDERS} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
+import {Http, Response} from 'angular2/http';
 import {Character} from '../character';
 
-@Injectable({
-    providers: [HTTP_PROVIDERS]
-})
+@Injectable()
 export class CharacterService {
     private charUrl: string = "build/character.data.json";
 

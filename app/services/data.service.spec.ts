@@ -1,8 +1,8 @@
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
 import { SqlStorage } from 'ionic-angular';
-import { DataService } from './data';
-import { Note } from './note';
+import { DataService } from './data.service';
+import { Note } from '../note';
 
 let service = null;
 let returnObject = {

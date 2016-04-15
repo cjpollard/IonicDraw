@@ -2,7 +2,7 @@ import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} fr
 import { setBaseTestProviders } from 'angular2/testing';
 import { IonicApp, Page, NavController, NavParams, Platform }   from 'ionic-angular';
 import { DrawPadPage }           from './draw-pad';
-import { DataService } from '../../data';
+import { DataService } from '../../services/data.service';
 import { GlobalFunctions } from '../../globals';
 import { Note } from '../../note';
 

@@ -2,7 +2,7 @@ import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} fr
 import { setBaseTestProviders } from 'angular2/testing';
 import { IonicApp, Page, NavController }   from 'ionic-angular';
 import { NotesPage }           from './notes';
-import { DataService } from '../../data';
+import { DataService } from '../../services/data.service';
 
 let page = null;
 let service = null;

@@ -10,30 +10,27 @@ import {NotesPage} from './pages/notes/notes';
 import {GalleryPage} from './pages/gallery/gallery';
 import {CharacterListPage} from './pages/character-list/character-list';
 import {DataService} from './services/data.service';
-import {CharacterService} from './services/character.service';
 
 @App({
     templateUrl: 'build/app.html',
-    providers: [CharacterService, DataService],
+    providers: [DataService],
     config: {}
 })
 export class MyApp {
 
     private app: IonicApp;
     private platform: Platform;
-    private characterService: CharacterService;
     private dataService: DataService;
     private pages: Array<any>;
     private rootPage: any;
 
-    constructor(app: IonicApp, platform: Platform, dataService: DataService, characterService: CharacterService) {
+    constructor(app: IonicApp, platform: Platform, dataService: DataService) {
 
         // set up our app
         this.app = app;
         this.platform = platform;
         this.initializeApp();
         this.dataService = dataService;
-        this.characterService = characterService;
 
         // set our app's pages
         this.pages = [

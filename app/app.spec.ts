@@ -1,9 +1,10 @@
 import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import { setBaseTestProviders } from 'angular2/testing';
 import { IonicApp, Platform }   from 'ionic-angular';
+import { Http } from 'angular2/http';
 import { StatusBar } from 'ionic-native';
 import { MyApp }           from './app';
-import { DataService } from './data';
+import { DataService } from './services/data.service';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS);

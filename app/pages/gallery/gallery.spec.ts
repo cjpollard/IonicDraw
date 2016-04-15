@@ -2,7 +2,7 @@ import { TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} fr
 import { setBaseTestProviders } from 'angular2/testing';
 import { IonicApp, Page, NavController }   from 'ionic-angular';
 import { GalleryPage }           from './gallery';
-import { DataService } from '../../data';
+import { DataService } from '../../services/data.service';
 import { Note } from '../../note';
 import { UniquePipe } from '../../pipes/unique.pipe';
 
