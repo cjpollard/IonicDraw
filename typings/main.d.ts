@@ -1,4 +1,3 @@
-/// <reference path="main/ambient/angular2/index.d.ts" />
 /// <reference path="main/ambient/angular/index.d.ts" />
 /// <reference path="main/ambient/bluebird/index.d.ts" />
 /// <reference path="main/ambient/chalk/index.d.ts" />

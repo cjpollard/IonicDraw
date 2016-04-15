@@ -1,6 +1,6 @@
 {
   "ambientDependencies": {
-    "angular": "registry:dt/angular#1.5.0+20160328125810",
+    "angular": "registry:dt/angular#1.5.0+20160412133217",
     "bluebird": "registry:dt/bluebird#2.0.0+20160319051630",
     "chalk": "registry:dt/chalk#0.4.0+20160317120654",
     "cordova-ionic": "registry:dt/cordova-ionic#0.0.0+20160316155526",

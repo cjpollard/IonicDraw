@@ -15,7 +15,7 @@ function getComponentStub(name: string): any {
   'use strict';
 
   let component: any = {
-    setRoot: function(): boolean { return true; },
+    push: function(): boolean { return true; },
     close: function(root: any): boolean { return true; },
   };
   return component;
