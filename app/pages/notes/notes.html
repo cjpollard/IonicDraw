@@ -11,7 +11,7 @@
   </ion-refresher>
   <ion-searchbar [(ngModel)]="searchQuery" (input)="filterNotes($event)" (cancel)="updateNotes()" (clear)="updateNotes()"></ion-searchbar>
 
-  <ion-list *ngFor="#note of notes">
+  <ion-list *ngFor="#note of notes | unique">
     <ion-card (click)="editNote(note)">
       <ion-card-header>{{note.title}}</ion-card-header>
       <ion-card-content>{{note.note}}</ion-card-content>
