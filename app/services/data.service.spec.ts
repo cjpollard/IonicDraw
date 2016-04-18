@@ -56,8 +56,8 @@ export function main() {
     });
 
     it('getNotes returns some notes', (done: Function) => {
-      service.getNotes("note", (notes) => {
-        expect(service['notes']).toEqual([{id: 1, title: "title", note: "note"}]);
+      service.getNotes("note").then((notes) => {
+        expect(service['notes']).toEqual([{id: 1, title: "title", note: "note", type: "note"}]);
         done();
       });
       expect(service['storage'].query).toHaveBeenCalled();

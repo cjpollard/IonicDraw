@@ -16,8 +16,11 @@ export function main() {
     beforeEach(function() {
       service = new DataService();
       page = new GalleryPage(null, service);
+      let returnPromise = new Promise((resolve, reject) => {
+        resolve([]);
+      });
       spyOn(service, 'deleteDb');
-      spyOn(service, 'getNotes');
+      spyOn(service, 'getNotes').and.returnValue(returnPromise);
     });
 
     it('initialises the page', () => {

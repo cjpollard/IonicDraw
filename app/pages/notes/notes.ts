@@ -1,5 +1,5 @@
-import {Page, NavController, Alert} from 'ionic-angular';
-import {ChangeDetectionStrategy} from 'angular2/core';
+import {Platform, Page, NavController, Alert} from 'ionic-angular';
+import {ChangeDetectionStrategy, NgZone} from 'angular2/core';
 import {DataService} from '../../services/data.service';
 import {EditNotePage} from '../edit-note/edit-note';
 import {Note} from '../../note';
@@ -15,23 +15,28 @@ import {UniquePipe} from '../../pipes/unique.pipe';
 export class NotesPage {
     private nav: NavController;
     private dataService: DataService;
-    private notes: Array<Note>;
+    public notes: Note[];
     private searchQuery: string;
+    private platform: Platform;
+    private zone: NgZone;
 
-    constructor(nav: NavController, dataService: DataService) {
+    constructor(nav: NavController, platform: Platform, dataService: DataService, zone: NgZone) {
         this.nav = nav;
+        this.platform = platform;
         this.dataService = dataService;
-        this.notes = [{ id: 0, title: "", note: "", type: "note" }];
+        this.zone = zone;
+        this.notes = [];
         this.updateNotes();
         this.searchQuery = "";
     }
 
     updateNotes(refresher?: any) {
-        let that = this;
         refresher = typeof refresher !== "undefined" ? refresher : { complete: function() { } };
-        this.dataService.getNotes("note", (notes: Array<Note>) => {
-            that.notes = notes;
-            refresher.complete();
+        this.dataService.getNotes("note").then((notes: Note[]) => {
+            this.zone.run(() => {
+                this.notes = notes;
+                refresher.complete();
+            });
         });
     }
 
@@ -49,8 +54,8 @@ export class NotesPage {
         });
     }
 
-    onPageDidEnter() {
-        this.updateNotes();
+    onPageWillEnter() {
+        return this.updateNotes();
     }
 
     presentConfirm() {

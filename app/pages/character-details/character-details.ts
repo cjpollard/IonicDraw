@@ -24,12 +24,5 @@ export class CharacterDetailsPage {
     this.title = this.char.name;
     this.characteristics = Characteristics;
     this.biography = Biography;
-    this.init();
-  }
-
-  init() {
-    this.platform.ready().then(() => {
-      Vibration.vibrate(500);
-    });
   }
 }

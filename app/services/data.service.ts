@@ -6,7 +6,7 @@ import {Note} from '../note';
 export class DataService {
 
     private storage: SqlStorage;
-    private notes: any;
+    private notes: Note[];
 
     constructor() {
         this.storage = DataService.initStorage();
@@ -25,16 +25,20 @@ export class DataService {
         });
     }
 
-    getNotes(type: string, callback: (notes: any) => void) {
+    getNotes(type: string): Promise<any> {
         this.notes = [];
-        this.storage.query("SELECT * FROM notes WHERE type='" + type + "'").then((tx) => {
-            let success = tx.res;
-            if (success && success.rows.length > 0) {
-                for (var i = 0; i < success.rows.length; i++) {
-                    this.notes.push({ id: success.rows.item(i).id, title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note) });
+        return new Promise((resolve, reject) => {
+            this.storage.query("SELECT * FROM notes WHERE type='" + type + "'").then((tx) => {
+                let success = tx.res;
+                if (success && success.rows.length > 0) {
+                    for (var i = 0; i < success.rows.length; i++) {
+                        this.notes.push({ id: success.rows.item(i).id, title: decodeURIComponent(success.rows.item(i).title), note: decodeURIComponent(success.rows.item(i).note), type: type });
+                    }
+                    resolve(this.notes);
+                } else {
+                    reject("Failed to fetch notes");
                 }
-            }
-            callback(this.notes);
+            });
         });
     }
 

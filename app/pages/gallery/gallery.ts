@@ -29,7 +29,7 @@ export class GalleryPage {
     updateNotes(refresher?: any) {
         let that = this;
         refresher = typeof refresher !== "undefined" ? refresher : { complete: function() { } };
-        this.dataService.getNotes("canvas", (images) => {
+        this.dataService.getNotes("canvas").then((images) => {
             that.images = images;
             refresher.complete();
         });
