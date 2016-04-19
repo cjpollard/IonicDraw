@@ -72,7 +72,9 @@
     "cordova-plugin-ace",
     "phonegap-plugin-push",
     "cordova-plugin-x-toast",
-    "cordova-plugin-vibration"
+    "cordova-plugin-vibration",
+    "cordova-plugin-geolocation",
+    "cordova-plugin-network-information"
   ],
   "cordovaPlatforms": [
     "android"

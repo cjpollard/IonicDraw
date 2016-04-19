@@ -9,6 +9,7 @@ import {MotionDrawPage} from './pages/motion-draw/motion-draw';
 import {NotesPage} from './pages/notes/notes';
 import {GalleryPage} from './pages/gallery/gallery';
 import {CharacterListPage} from './pages/character-list/character-list';
+import {MapPage} from './pages/map/map';
 import {DataService} from './services/data.service';
 
 @App({
@@ -39,7 +40,8 @@ export class MyApp {
             { title: 'MotionDraw', component: MotionDrawPage },
             { title: 'Notes', component: NotesPage },
             { title: 'Gallery', component: GalleryPage },
-            { title: 'Characters', component: CharacterListPage }
+            { title: 'Characters', component: CharacterListPage },
+            { title: 'Map', component: MapPage }
         ];
 
         this.rootPage = HomePage;

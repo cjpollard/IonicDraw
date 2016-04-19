@@ -25,7 +25,6 @@ export class NotesPage {
         this.platform = platform;
         this.dataService = dataService;
         this.zone = zone;
-        this.notes = [];
         this.updateNotes();
         this.searchQuery = "";
     }
@@ -34,6 +33,7 @@ export class NotesPage {
         refresher = typeof refresher !== "undefined" ? refresher : { complete: function() { } };
         this.dataService.getNotes("note").then((notes: Note[]) => {
             this.zone.run(() => {
+                this.notes = [];
                 this.notes = notes;
                 refresher.complete();
             });
