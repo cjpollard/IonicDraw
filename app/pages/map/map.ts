@@ -1,4 +1,4 @@
-import {Page, Platform, NavController} from 'ionic-angular';
+import {Alert, Page, Platform, NavController} from 'ionic-angular';
 import {Connection, Network} from 'ionic-native';
 
 
@@ -12,21 +12,6 @@ export class MapPage {
   constructor(public nav: NavController, private platform: Platform) {
     this.nav = nav;
     this.initialiseMap();
-  }
-
-  setupCustomMapStyle() {
-  }
-
-  loadMapsApi() {
-    if(document.getElementById("map-api")) {
-      document.body.removeChild(document.getElementById("map-api"));
-    }
-    window["loadMap"] = this.loadMap;
-    let src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCEZTvpjoho6wfGMHKF6IOMZ8x-5SkUVUw&callback=loadMap";
-    let api = document.createElement("script");
-    api.src = src;
-    api.id = "map-api";
-    document.body.appendChild(api);
   }
 
   loadMap() {
@@ -56,7 +41,7 @@ export class MapPage {
         }]
       }];
 
-      let styledMap = new google.maps.StyledMapType(styles, {name: "dark map"});
+      let styledMap = new google.maps.StyledMapType(styles, {name: "road map"});
 
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -64,27 +49,54 @@ export class MapPage {
             zoom: minZoomLevel,
             center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
             mapTypeControlOptions: {
-              mapTypeId: [google.maps.MapTypeId.ROADMAP, "dark_map"]
+              mapTypeId: [google.maps.MapTypeId.ROADMAP, "road_map"]
             }
           });
-          this.map.mapTypes.set("dark_map", styledMap);
-          this.map.setMapTypeId("dark_map");
+          this.map.mapTypes.set("road_map", styledMap);
+          this.map.setMapTypeId("road_map");
         },
         (error) => {
           this.map = new google.maps.Map(mapDiv, {
-            zoom: minZoomLevel,
-            center: new google.maps.LatLng(54.65, -2.75),
+            zoom: 5,
+            center: new google.maps.LatLng(0, 0),
             mapTypeId: google.maps.MapTypeId.ROADMAP
           });
         }, locationOptions
       );
   }
 
+  loadMapsApi() {
+    if(document.getElementById("map-api")) {
+      document.body.removeChild(document.getElementById("map-api"));
+    }
+    window["loadMap"] = this.loadMap;
+    let src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCEZTvpjoho6wfGMHKF6IOMZ8x-5SkUVUw&callback=loadMap";
+    let api = document.createElement("script");
+    api.src = src;
+    api.id = "map-api";
+    document.body.appendChild(api);
+  }
+
   initialiseMap() {
     this.platform.ready().then(() => {
 
-      if(Network.connection === "NONE") {
-        return;
+      if(Network.connection === "none") {
+        let alert = Alert.create({
+            title: 'Connection',
+            message: 'You need to be connected to use this page.',
+            buttons: [{
+                text: 'Fine, gimme a sec.',
+                handler: () => {
+                    this.nav.remove().then(() => {
+                        cordova.plugins.settings.openSetting("wifi", () => {}, () => {
+                          console.log("Could not open settings.");
+                        });
+                        this.nav.pop();
+                    });
+                }
+            }]
+        });
+        this.nav.present(alert);
       } else {
         this.loadMapsApi();
       }

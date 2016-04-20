@@ -9,7 +9,7 @@ import { Character } from '../character';
 
 export function main() {
 
-  describe('DataService', () => {
+  describe('CharacterService', () => {
 
     beforeEachProviders(() => {
       return [HTTP_PROVIDERS, provide(XHRBackend, {useClass: MockBackend}), CharacterService];
