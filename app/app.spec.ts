@@ -34,7 +34,7 @@ export function main() {
     });
 
     it('initialises with five possible pages', () => {
-      expect(myApp['pages'].length).toEqual(6);
+      expect(myApp['pages'].length).toEqual(7);
     });
 
     it('initialises with a root page', () => {
