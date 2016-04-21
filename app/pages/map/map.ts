@@ -27,7 +27,7 @@ export class MapPage {
       },{
         featureType: "poi",
         stylers: [{
-          visibility: "off"
+          visibility: "on"
         }]
       },{
         featureType: "road",
@@ -81,18 +81,27 @@ export class MapPage {
     this.platform.ready().then(() => {
 
       if(Network.connection === "none") {
+        this.nav.pop();
         let alert = Alert.create({
             title: 'Connection',
             message: 'You need to be connected to use this page.',
             buttons: [{
                 text: 'Fine, gimme a sec.',
                 handler: () => {
-                    this.nav.remove().then(() => {
-                        cordova.plugins.settings.openSetting("wifi", () => {}, () => {
-                          console.log("Could not open settings.");
-                        });
-                        this.nav.pop();
+                  this.nav.remove();
+                  if(typeof cordova.plugins.settings.openSetting !== "undefined") {
+                    cordova.plugins.settings.openSetting("wifi", () => {
+                      console.log("Opened wifi settings");
+                    }, () => {
+                      console.log("Could not open settings.");
                     });
+                  } else {
+                    cordova.plugins.settings.open(() => {
+                      console.log("Opened settings");
+                    }, () => {
+                      console.log("Could not open settings.");
+                    });
+                  }
                 }
             }]
         });
