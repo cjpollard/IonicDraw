@@ -49,7 +49,7 @@ export class MapPage {
             zoom: minZoomLevel,
             center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
             mapTypeControlOptions: {
-              mapTypeId: [google.maps.MapTypeId.ROADMAP, "road_map"]
+              mapTypeIds: [google.maps.MapTypeId.ROADMAP, "road_map"]
             }
           });
           this.map.mapTypes.set("road_map", styledMap);
